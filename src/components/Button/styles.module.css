@@ -1,0 +1,85 @@
+.root {
+  padding: 0.5rem 1rem;
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: none;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  line-height: 1rem;
+  cursor: pointer;
+}
+
+.root > .icon {
+  margin-right: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.root > p {
+  margin: 0;
+  line-height: 1rem;
+}
+
+.active-rounded {
+  border-radius: 1.5rem;
+  color: var(--gray-25);
+  background-color: var(--primary);
+}
+
+.active-square {
+  border-radius: 0.25rem;
+  color: var(--gray-25);
+  background-color: var(--primary);
+}
+
+.negative {
+  color: var(--primary);
+  background-color: transparent; 
+}
+
+.highlight-rounded {
+  border-radius: 1.5rem;
+  color: var(--primary);
+  background-color: var(--white);
+}
+
+.root:disabled {
+  background-color: #D1D1D6;
+  color: #515151;
+  cursor: no-drop;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    padding: 8px 16px;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    line-height: 16px;
+    cursor: pointer;
+  }
+
+  .root > .icon {
+    margin-right: 4px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .active-rounded {
+    border-radius: 24px;
+  }
+
+  .negative > p {
+    display: none;
+  }
+
+  .highlight-rounded > p {
+    display: none;
+  }
+}

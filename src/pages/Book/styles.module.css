@@ -1,0 +1,182 @@
+.root {
+  padding: 3.5rem 14.0625rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 7.8125rem;
+  height: auto;
+}
+
+.root > img {
+  width: fill;
+  height: fill;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.root > div > h3,
+.confirmModal > h3 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+
+.root > div > p,
+.confirmModal > p {
+  font-family: 'Avenir', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+
+.root > div > form > div {
+  margin-bottom: 1.5rem;
+}
+
+.root > div > form > p {
+  text-align: left;
+  font-family: 'Avenir', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.root > div > form > button,
+.confirmModal > button {
+  width: fill;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.confirmModal {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 0.25rem;
+  width: 19.5rem;
+}
+
+.cityExtended, .knowFromExtended {
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.root > div:nth-of-type(1) > form > .date {
+  margin-bottom: 0;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox > p {
+  padding-top: 0.25rem;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  vertical-align: middle;
+}
+
+.checkbox > img {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.root > div:nth-of-type(1) > form > a {
+  text-decoration: none;
+  width: 100%;
+  height: fit-content;
+}
+
+.root > div:nth-of-type(1) > form > .disabledSubmit {
+  pointer-events: none;
+}
+
+.root > div:nth-of-type(1) > form > a > button {
+  width: 100%;
+  padding: 1rem;
+  text-decoration: none;
+  padding: 0;
+}
+
+.root > div:nth-of-type(1) > form > a > button > p {
+  width: fill;
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    padding: 96px 40px 56px;
+    display: block;
+  }
+  
+  .root > img {
+    display: none;
+  }
+  
+  .root > div > h3,
+  .confirmModal > h3 {
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 24px;
+  }
+  
+  .root > div > p,
+  .confirmModal > p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .root > div > form > div {
+    margin-bottom: 24px;
+  }
+  
+  .root > div > form > p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .root > div > form > button,
+  .confirmModal > button {
+    padding: 16px;
+    border-radius: 4px;
+  }
+
+  .confirmModal {
+    padding: 24px;
+    border-radius: 4px;
+    width: 312px;
+    max-width: 70vw;
+  }
+
+  .cityExtended, .knowFromExtended {
+    margin-top: -8px;
+    margin-bottom: 8px;
+  }
+  
+  .checkbox > p {
+    padding-top: 4px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .checkbox > img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  .root > div:nth-of-type(1) > form > a > button > p {
+    width: fill;
+    padding: 16px;
+  }
+}
