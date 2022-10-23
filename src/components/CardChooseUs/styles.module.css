@@ -1,0 +1,66 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--light-blue);
+  border-radius: 0.25rem;
+}
+
+.root > div {
+  padding: 1rem;
+  text-align: left;
+}
+
+.root > div > p:first-child {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1rem;
+}
+
+.root > div > p:last-child {
+  margin: 0;
+  margin-top: 0.5rem;
+  font-weight: 300;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-family: 'Avenir', sans-serif;
+}
+
+.root > img {
+  height: 6.5rem;
+  width: 5.6875rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .root > div {
+    padding: 16px;
+    text-align: left;
+  }
+  
+  .root > div > p:first-child {
+    margin: 0;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  
+  .root > div > p:last-child {
+    margin: 0;
+    margin-top: 8px;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'Avenir', sans-serif;
+  }
+  
+  .root > img {
+    height: 104px;
+    width: 91px;
+  }
+}

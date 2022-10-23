@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Gallery from './pages/Gallery';
+import Navbar from './components/Navbar';
+import { routes } from './configs/routes';
+import Footer from './components/Footer/Footer';
+import AppContextProvider from './contexts';
+import 'antd/dist/antd.css';
 import './App.css';
+import Career from './pages/Career';
+import Book from './pages/Book';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <BrowserRouter>
+    <AppContextProvider>
+      <Navbar />
+      <div className='App'>
+          <Routes>
+            <Route path={routes.HOMEPAGE()} exact element={<Home />} />
+            <Route path={routes.GALLERY()} element={<Gallery />} />
+            <Route path={routes.CAREER()} element={<Career />} />
+            <Route path={routes.BOOK()} element={<Book />} />
+          </Routes>
+      </div>
+    </AppContextProvider>
+  </BrowserRouter>
   );
 }
 

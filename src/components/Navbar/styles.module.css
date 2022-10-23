@@ -1,0 +1,82 @@
+.root {
+  padding: 1rem 7.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  position: fixed;
+  width: fill;
+  background: linear-gradient(7.14deg, #FFF5F1 -1%, #FFFFFF -7.58%, #FCE6DD 100.1%);
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  transition: 0.5s;
+}
+
+.topBar {
+  display: none;
+}
+
+.root > img {
+  height: 4.5rem;
+  width: 7.5rem;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.menuBar {
+  display: flex;
+}
+
+.menuBar > button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    bottom: 24px;
+    width: fill;
+    justify-content: center;
+    background: unset;
+  }
+  
+  .root > img {
+    display: none;
+  }
+  
+  .menuBar {
+    position: fixed;
+    border-radius: 40px;
+    box-shadow: 0px 11px 12px -4px rgba(138, 132, 130, 0.21);
+    background-color: var(--gray-25);
+    padding: 16px;
+    width: 85%;
+    max-width: 425px; 
+    display: flex;
+    justify-content: space-between;
+    bottom: 16px;
+    z-index: 10;
+  }
+
+  .topBar {
+    display: block;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+
+  .topBar > img {
+    height: 24px;
+    width: 24px;
+  }
+
+}
+
+@media only screen and (max-width: 435px) {
+  .menuBar > button:last-child > p {
+    white-space: nowrap;
+    width: 70px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: unset;
+  }
+}

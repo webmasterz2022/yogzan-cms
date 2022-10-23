@@ -1,0 +1,141 @@
+.select {
+  padding: 0.5rem;
+  border: solid 1px #D1D1D6;
+  border-radius: 0.5rem;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+.select > span {
+  color: #97A4B4;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  width: 16.75rem;
+  margin: 0;
+  margin-right: 0.5rem;
+  text-align: left;
+}
+
+.selected {
+  color: var(--gray-800) !important;
+}
+
+.select > img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.rotate {
+  rotate: 180deg;
+}
+
+.container {
+  position: absolute;
+  width: 19.5rem;
+  border: solid 1px var(--tertiary-30);
+  background-color: var(--white);
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  padding: 1.25rem 0;
+}
+
+.container > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  color: var(--gray-800);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.container > div:first-child {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--gray-400);
+}
+
+.container > div:hover:not(:first-child, .active) {
+  cursor: pointer;
+  background-color: var(--tertiary-30);
+}
+
+.container > div.active {
+  background-color: var(--gray-800);
+  color: var(--gray-25);
+}
+
+.container > div.active > img {
+  width: 1.25rem;
+  height: 1.25rem;
+  filter: invert();
+}
+
+.helper {
+  font-family: 'Avenir', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.375rem;
+  text-align: left;
+  margin: 0;
+  margin-top: 0.5rem;
+  color: var(--gray-500);
+}
+
+@media only screen and (max-width: 768px) {
+  .select {
+    padding: 8px;
+    border-radius: 8px;
+    text-align: left;
+  }
+  
+  .select > span {
+    line-height: 24px;
+    font-size: 14px;
+    width: 299px;
+    margin-right: 8px;
+  }
+  
+  .select > img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .rotate {
+    rotate: 180deg;
+  }
+  
+  .container {
+    width: fill;
+    margin-right: 40px;
+    border-radius: 8px;
+    padding: 20px 0;
+  }
+  
+  .container > div {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .container > div:first-child {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  
+  .container > div.active > img {
+    width: 20px;
+    height: 20px;
+  }
+  .helper {
+    font-size: 14px;
+    line-height:22px;
+    margin-top: 8px;
+  }
+}

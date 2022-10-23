@@ -1,5 +1,14 @@
+* {
+  font-family: 'Comfortaa', sans-serif;
+}
+
 .App {
   text-align: center;
+  width: 100%;
+  max-width: 90rem;
+  margin: auto;
+  height: fit-content;
+  padding-top: 8rem;
 }
 
 .App-logo {
@@ -28,6 +37,33 @@
   color: #61dafb;
 }
 
+.modal-open {
+  overflow: hidden;
+}
+
+.modal-open>div>.modal {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: block;
+}
+
+.modal {
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transition: background-color 0.25s;
+  width: 100vw;
+  z-index: 50;
+}
+
+.modal-icon {
+  display: block;
+  position: absolute;
+  right: 1.2rem;
+  top: 1.2rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +71,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+:root {
+  font-size: calc(100vw * 16 / 1440);
+  --primary: #512B58;
+  --gray-25: #FCFCFD;
+  --white: #FFFFFF;
+  --white-bg: #FFFDFD;
+  --gray-600: #4D5761;
+  --gray-800: #1F2A37;
+  --gray-500: #70707B;
+  --gray-400: #98A2B3;
+  --gray-300: #D0D5DD;
+  --light-blue: #D9F0F7;
+  --tertiary-30: #D9DDE3;
+  --tertiary-40: #C8CCD2;
 }
