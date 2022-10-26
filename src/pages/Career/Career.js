@@ -1,116 +1,62 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styles from './styles.module.css'
-import CardChooseUs from '../../components/CardChooseUs'
-import { careerChooseUs } from './dataMock'
-import satu from '../../assets/satu.svg'
-import dua from '../../assets/dua.svg'
-import tiga from '../../assets/tiga.svg'
-import coverCareer from '../../assets/coverCareer.png'
-import formImage from '../../assets/hiring-cover.jpg'
-import FormDataDiri from '../../components/FormDataDiri'
-import FormDetailPengalaman from '../../components/FormDetailPengalaman'
-import { useDispatch } from 'react-redux'
-import { submitHiring } from '../../store/action'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllHirings } from '../../store/action'
+import { Table } from 'antd'
 
 export default function Career() {
   const dispatch = useDispatch()
-  const stepperContent = ['Data Diri', 'Detail Pengalaman']
-  const [step, setStep] = useState(stepperContent[0])
-  const [data, setData] = useState({
-    "fullname": '',
-    "nickname": '',
-    "email": '',
-    "phone": '',
-    "address": '',
-    "photoshoot": '',
-    "experience": '',
-    "camera": '',
-    "lens": '',
-    "accessories": '',
-    "workingHour": '',
-    "fee": '',
-    "cv": '',
-    "portfolio": '',
-  })
-
+  const {hirings} = useSelector(s => s)
   useEffect(() => {
+    dispatch(getAllHirings())
     window.scrollTo(0,0)
   }, [])
 
-  const handleSubmit = (values, step) => {
-    dispatch(submitHiring({ ...data, ...values }, () => {
-      window.location.href = '/career'
-    }))
-  }
-
-  const changeStep = (dataOnStep, step) => {
-    setData(prev => ({...prev, ...dataOnStep}))
-    step && setStep(step)
-  }
+  const feeFilters = [
+    {text: 'Dibawah Rp 200.000', value: 'Dibawah Rp 200.000'},
+    {text: 'Rp 200.000 - Rp 250.000', value: 'Rp 200.000 - Rp 250.000'},
+    {text: 'Rp 250.000 - Rp 300.000', value: 'Rp 250.000 - Rp 300.000'},
+    {text: 'Rp 300.000 - Rp 350.000', value: 'Rp 300.000 - Rp 350.000'},
+    {text: 'Rp 350.000 - Rp 400.000', value: 'Rp 350.000 - Rp 400.000'},
+    {text: 'Rp 450.000 - Rp 500.000', value: 'Rp 450.000 - Rp 500.000'},
+    {text: 'Diatas Rp 500.000', value: 'Diatas Rp 500.000'},
+  ]
+  const feeOnFilter = (value, record) => record.fee.indexOf(value) === 0
+  const workingHourFilter = [
+    {text: 'Weekdays', value: 'Weekdays'},
+    {text: 'Weekend', value: 'Weekend'},
+    {text: 'Weekdays & Weekend', value: 'Weekdays & Weekend'},
+  ]
+  const workingHourOnFilter = (value, record) => record.workingHour.indexOf(value) === 0
+  const reqLink = new RegExp(/^(ftp|http|https):\/\/[^ "]+$/);
+  const isLink = value => reqLink.test(value)
+  const renderLink = val => isLink(val) ? <a href={val} target="_blank" rel="noreferrer">{val}</a> : val
+  
+  const columnsTable = [
+    { dataIndex: "idx", title: "No.", width: '5rem', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "fullname", title: "Nama", width: '10rem', fixed: 'left' },
+    { dataIndex: "nickname", title: "Panggilan", width: '8rem' },
+    { dataIndex: "email", title: "Email", width: '15rem' },
+    { dataIndex: "phone", title: "Nomor HP", width: '8rem' },
+    { dataIndex: "address", title: "Alamat", width: '15rem', ellipsis: true },
+    { dataIndex: "workingHour", title: "Waktu Kerja", width: '10rem', filters: workingHourFilter, onFilter: workingHourOnFilter },
+    { dataIndex: "camera", title: "Kamera", width: '8rem', ellipsis: true },
+    { dataIndex: "lens", title: "Lensa", width: '8rem', ellipsis: true },
+    { dataIndex: "accessories", title: "Aksesoris", width: '8rem', ellipsis: true },
+    { dataIndex: "cv", title: "Link CV", width: '10rem', render: renderLink },
+    { dataIndex: "portfolio", title: "Link Portfolio", width: '10rem', render: renderLink },
+    { dataIndex: "fee", title: "Fee", width: '10rem', filters: feeFilters, onFilter: feeOnFilter },
+    { dataIndex: "experience", title: "Pengalaman", width: '20rem', ellipsis: true },
+  ]
 
   return (
     <section className={styles.root}>
-      <h3>Salurkan Hobi dan Kembangkan Skill Fotografi Kamu!</h3>
-      <p>Kamu hobi motret dan mau mengembangkan skill sambil dapat penghasilan tambahan? Yuk gabung dengan Yogzan!</p>
-      <div className={styles.why}>
-        <h3>Kenapa Harus Yogzan?</h3>
-        <div>
-          {careerChooseUs.map((why, i) => (
-            <CardChooseUs {...why} key={i}/>
-          ))}
-        </div>
-      </div>
-      <div className={styles.workflow}>
-        <div className={styles.title}>
-          <h2>Bagaimana cara kerjanya?</h2>
-          <p>Daftarkan diri kamu untuk menjadi kolaborator Yogzan melalui form yang disediakan.</p>
-        </div>
-        <div className={styles.cards}>
-          <div>
-            <h4>Terima Tugas</h4>
-            <p>Tim kami akan menghubungi kamu terkait informasi detail mengenai proyek yang akan kamu laksanakan.</p>
-            <img src={satu} alt="1"/>
-          </div>
-          <div>
-            <h4>Foto dan Kirim</h4>
-            <p>Setelah melakukan sesi foto atau video, kirim semua hasilnya ke Yogzan melalui akses cloud storage milik Yogzan.</p>
-            <img src={dua} alt="2"/>
-          </div>
-          <div>
-            <h4>Terima Komisi</h4>
-            <p>Setelah foto kami terima, silakan tunggu untuk mendapatkan komisi kamu dalam waktu 1 hingga 2 hari.</p>
-            <img src={tiga} alt="3"/>
-          </div>
-        </div>
-      </div>
-      <div className={styles.cover}>
-        <img src={coverCareer} />
-      </div>
-      <div className={styles.formContent}>
-        <div>
-          <h3>Gabung di Yogzan Sekarang!</h3>
-          <p>Tak sabar ingin berkenalan dengan kamu lebih dekat, yuk isi formulir di bawah!</p>
-          <div className={styles.stepper}>
-            <p 
-              className={step === stepperContent[0] ? styles.active : ''}
-            >
-              {stepperContent[0]}
-            </p>
-            <div className={styles.line}/>
-            <p
-              className={step === stepperContent[1] ? styles.active : ''}
-            >
-              {stepperContent[1]}
-            </p>
-          </div>
-          {step === stepperContent[0] ? (
-            <FormDataDiri data={data} handleStep={changeStep} handleSubmitForm={(e) => handleSubmit(e, stepperContent[0])} />
-          ) : (
-            <FormDetailPengalaman data={data} handleStep={changeStep} handleSubmitForm={(e) => handleSubmit(e, stepperContent[1])} />
-          )}
-        </div>
-        <img src={formImage} />
-      </div>
+      <Table 
+        dataSource={hirings.data ? hirings.data.map((e, i) => ({...e, idx: i+1})) : []}
+        columns={columnsTable}
+        pagination={{position: ['bottomLeft'], pageSize: 10}}
+        scroll={{y: '28rem'}}
+      />
     </section>
   )
 }
