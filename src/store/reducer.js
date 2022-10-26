@@ -6,7 +6,9 @@ const initialState = {
   },
   cities: [],
   categories: [],
-  testimonials: []
+  testimonials: [],
+  hirings: {},
+  bookings: {},
 }
 
 export default function reducer(state = initialState, action) {
@@ -36,6 +38,16 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         testimonials: action.payload
+      }
+    case 'DATA_FETCHED_HIRINGS':
+      return {
+        ...state,
+        hirings: action.payload
+      }
+    case 'DATA_FETCHED_BOOKINGS':
+      return {
+        ...state,
+        bookings: action.payload
       }
     default:
       return state

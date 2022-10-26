@@ -64,6 +64,21 @@ export function submitHiring(dataForm, cb) {
   }
 }
 
+export function getAllHirings() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: `https://yogzan-server-dev.herokuapp.com/hiring?limit=1000`,
+        // url: `http://localhost:5000/hiring/`,
+      })
+      dispatch({ payload: data, type: 'DATA_FETCHED_HIRINGS' })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
 export function submitBooking(dataBooking, cb) {
   return async () => {
     try {
@@ -74,6 +89,21 @@ export function submitBooking(dataBooking, cb) {
         data: dataBooking
       })
       cb()
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+export function getAllBookings() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: `https://yogzan-server-dev.herokuapp.com/book?limit=1000`,
+        // url: `http://localhost:5000/book/`,
+      })
+      dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
     } catch (error) {
       alert(error.message)
     }
