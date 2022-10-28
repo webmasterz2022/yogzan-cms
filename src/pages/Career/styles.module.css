@@ -20,3 +20,26 @@
   /* background-color: var(--primary) !important;
   color: white; */
 }
+
+@media only screen and (max-width: 768px) {
+  .root {
+  padding: 16px;
+}
+
+.root > div:nth-child(1) {
+  padding: 16px;
+  width: fit-content !important;
+  height: fit-content !important;
+}
+
+.root > div:nth-child(1) table {
+  background-color: white;
+  font-size: 10px;
+}
+
+.root > div table > thead > tr > th {
+  /* background-color: var(--primary) !important;
+  color: white; */
+}
+  
+}
