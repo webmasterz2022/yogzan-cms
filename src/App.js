@@ -6,10 +6,10 @@ import { routes } from './configs/routes';
 import Footer from './components/Footer/Footer';
 import AppContextProvider from './contexts';
 import 'antd/dist/antd.css';
-import "@silevis/reactgrid/styles.css";
 import './App.css';
 import Career from './pages/Career';
 import Book from './pages/Book';
+
 
 function App() {
   return (
