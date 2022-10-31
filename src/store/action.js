@@ -2,6 +2,24 @@ import axios from 'axios'
 import base64toFile from '../utils/base64ToFile'
 import fileToBase64 from '../utils/fileTobase64'
 
+export function login(form) {
+  return async dispatch => {
+    try {
+      const { data } = await axios({
+        method: 'post',
+        url: 'https://yogzan-server-dev.herokuapp.com/users/login',
+        data: form
+      })
+      localStorage.setItem('token', data.access_token)
+      localStorage.setItem('userId', data.userId)
+      localStorage.setItem('username', data.username)
+      window.location.href = '/'
+    } catch (error) {
+      
+    }
+  }
+}
+
 export function getHomepageImages() {
   return async dispatch => {
     try {
@@ -139,7 +157,7 @@ export function uploadHomepageGallery(file, imageName) {
         // url: `http://localhost:5000/gallery?id=${id}`,
         data: form,
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE4NWJjYTZlZTU2NjZmN2Q0NjBiMzEiLCJ1c2VybmFtZSI6Im1hc3RlciIsImVtYWlsIjoid2VibWFzdGVyejIwMjJAZ21haWwuY29tIiwiaWF0IjoxNjY2NDU2Mzc1fQ.ZzdHN98ZaR5RBO0gig-Yp2I8bli7-EwzAMhjjYA1Jcc'
+          access_token: localStorage.getItem('token')
         }
       })
       dispatch(getHomepageImages())
@@ -180,7 +198,7 @@ export function addCategory(category, cb) {
         // url: `http://localhost:5000/category`,
         data: form,
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE4NWJjYTZlZTU2NjZmN2Q0NjBiMzEiLCJ1c2VybmFtZSI6Im1hc3RlciIsImVtYWlsIjoid2VibWFzdGVyejIwMjJAZ21haWwuY29tIiwiaWF0IjoxNjY2NDU2Mzc1fQ.ZzdHN98ZaR5RBO0gig-Yp2I8bli7-EwzAMhjjYA1Jcc'
+          access_token: localStorage.getItem('token')
         }
       })
       cb()
@@ -211,7 +229,7 @@ export function updateCategory(id, category, cb) {
         // url: `http://localhost:5000/category/update/${id}`,
         data: form,
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE4NWJjYTZlZTU2NjZmN2Q0NjBiMzEiLCJ1c2VybmFtZSI6Im1hc3RlciIsImVtYWlsIjoid2VibWFzdGVyejIwMjJAZ21haWwuY29tIiwiaWF0IjoxNjY2NDU2Mzc1fQ.ZzdHN98ZaR5RBO0gig-Yp2I8bli7-EwzAMhjjYA1Jcc'
+          access_token: localStorage.getItem('token')
         }
       })
       cb()
@@ -267,7 +285,7 @@ export function addTestimony(testimony, cb) {
         // url: `http://localhost:5000/testimony`,
         data: form,
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE4NWJjYTZlZTU2NjZmN2Q0NjBiMzEiLCJ1c2VybmFtZSI6Im1hc3RlciIsImVtYWlsIjoid2VibWFzdGVyejIwMjJAZ21haWwuY29tIiwiaWF0IjoxNjY2NDU2Mzc1fQ.ZzdHN98ZaR5RBO0gig-Yp2I8bli7-EwzAMhjjYA1Jcc'
+          access_token: localStorage.getItem('token')
         }
       })
       cb()
@@ -298,7 +316,7 @@ export function updateTestimony(id, testimony, cb) {
         // url: `http://localhost:5000/testimony/${id}`,
         data: form,
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE4NWJjYTZlZTU2NjZmN2Q0NjBiMzEiLCJ1c2VybmFtZSI6Im1hc3RlciIsImVtYWlsIjoid2VibWFzdGVyejIwMjJAZ21haWwuY29tIiwiaWF0IjoxNjY2NDU2Mzc1fQ.ZzdHN98ZaR5RBO0gig-Yp2I8bli7-EwzAMhjjYA1Jcc'
+          access_token: localStorage.getItem('token')
         }
       })
       cb()
@@ -317,7 +335,7 @@ export function deleteTestimony(id) {
         url: `https://yogzan-server-dev.herokuapp.com/testimony/${id}`,
         // url: `http://localhost:5000/testimony/${id}`,
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE4NWJjYTZlZTU2NjZmN2Q0NjBiMzEiLCJ1c2VybmFtZSI6Im1hc3RlciIsImVtYWlsIjoid2VibWFzdGVyejIwMjJAZ21haWwuY29tIiwiaWF0IjoxNjY2NDU2Mzc1fQ.ZzdHN98ZaR5RBO0gig-Yp2I8bli7-EwzAMhjjYA1Jcc'
+          access_token: localStorage.getItem('token')
         }
       })
       dispatch(getAllTestimonies())

@@ -19,7 +19,6 @@ export default function Navbar() {
   const device = getDeviceType()
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const logoRef = useRef() 
   const rootRef = useRef()
 
   const menus = [
@@ -39,47 +38,57 @@ export default function Navbar() {
       handleClick: () => navigate(routes.CAREER()),
       variant: routes.CAREER() === pathname ? 'active-rounded' : 'negative',
     },{
-      title: 'Pesan Sekarang!',
+      title: 'Booking',
       icon: routes.BOOK() === pathname ? bookingLight : bookingPrimary,
       handleClick: () => navigate(routes.BOOK()),
-      variant: routes.BOOK() === pathname ? 'active-rounded' : 'highlight-rounded',
+      variant: routes.BOOK() === pathname ? 'active-rounded' : 'negative',
     }
   ]
 
   useEffect(() => {
-    if(device === 'desktop' && pathname === routes.HOMEPAGE()) {
-      logoRef.current.style.opacity = 0
-      window.onscroll = () => {
-        if(device === 'desktop' && pathname === routes.HOMEPAGE()) {
-          if(document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
-            logoRef.current.style.opacity = 'unset'
-            rootRef.current.style.boxShadow = '0px 11px 12px -4px rgba(138, 132, 130, 0.21)';
-          } else {
-            logoRef.current.style.opacity = 0
-            rootRef.current.style.boxShadow = 'unset';
+    if(pathname !== routes.LOGIN()) {
+      if(device === 'desktop' && pathname === routes.HOMEPAGE()) {
+        window.onscroll = () => {
+          if(device === 'desktop' && pathname === routes.HOMEPAGE()) {
+            if(document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
+              rootRef.current.style.boxShadow = '0px 11px 12px -4px rgba(138, 132, 130, 0.21)';
+            } else {
+              rootRef.current.style.boxShadow = 'unset';
+            }
           }
         }
+      } else {
+        window.onscroll = () => {}
       }
-    } else {
-      logoRef.current.style.opacity = 'unset'
-      window.onscroll = () => {}
     }
   }, [pathname])
 
+  const logout = () => {
+    localStorage.clear()
+    window.location.href = '/login'
+  }
+
+  if(pathname === routes.LOGIN()) {
+    return null
+  }
+
   return (
     <div ref={rootRef} className={styles.root}>
-      <img ref={logoRef} src={logoDark} alt="yogzan" onClick={() => navigate('/')}/>
       <div className={styles.menuBar}>
         {menus.map((menu, idx) => (
           <Button
-            key={idx}
+          key={idx}
             icon={menu.icon}
             variant={menu.variant}
             handleClick={menu.handleClick}
-          >
+            >
             {menu.title}
           </Button>
         ))}
+      </div>
+      <div>
+        <h2>Hi, <b>{localStorage.getItem('username')}!</b></h2>
+        <Button variant="active-square" handleClick={logout}>Logout</Button>
       </div>
     </div>
   )

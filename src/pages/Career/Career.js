@@ -51,11 +51,12 @@ export default function Career() {
 
   return (
     <section className={styles.root}>
+      <h1>List Kandidat</h1>
       <Table 
         dataSource={hirings.data ? hirings.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={columnsTable}
         pagination={{position: ['bottomLeft'], pageSize: 10}}
-        scroll={{y: '28rem'}}
+        scroll={{y: 'fit-content'}}
       />
     </section>
   )

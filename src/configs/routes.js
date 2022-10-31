@@ -3,4 +3,5 @@ export const routes = {
   GALLERY: () => `/gallery`,
   CAREER: () => `/career`,
   BOOK: () => `/book`,
+  LOGIN: () => `/login`,
 };

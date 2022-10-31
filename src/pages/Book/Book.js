@@ -33,11 +33,12 @@ export default function Book() {
 
   return (
     <section className={styles.root}>
+      <h1>List Booking</h1> 
       <Table 
         dataSource={bookings.data ? bookings.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={columnsTable}
         pagination={{position: ['bottomLeft'], pageSize: 10}}
-        scroll={{y: '28rem'}}
+        scroll={{y: 'fit-content'}}
       />
     </section>
   )

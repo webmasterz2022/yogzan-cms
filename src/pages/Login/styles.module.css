@@ -1,0 +1,26 @@
+.root {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -5rem;
+  height: 50vh;
+}
+
+.root > div {
+  width: 20rem;
+}
+
+.root > div > div {
+  margin-bottom: 2rem;
+}
+
+.root > div > button {
+  width: fill;
+  height: 2.5rem;
+}
+
+.root > div:nth-of-type(1) > img {
+  margin-bottom: 3rem;
+  width: 10rem;
+}
