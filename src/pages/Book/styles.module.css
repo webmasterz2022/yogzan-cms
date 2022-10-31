@@ -12,13 +12,24 @@
   margin-left: 1rem;
 }
 
-.root > div:nth-child(1) {
+.root > div:nth-of-type(1) {
+  display: flex;
+  align-self: flex-start;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+} 
+
+.root > div:nth-of-type(1) > button {
+  margin-right: 1rem;
+}
+
+.root > div:nth-of-type(2) {
   padding: 1rem;
   width: fit-content !important;
   height: fit-content !important;
 }
 
-.root > div:nth-child(1) table {
+.root > div:nth-of-type(2) table {
   background-color: white;
   font-size: 0.625rem;
 }

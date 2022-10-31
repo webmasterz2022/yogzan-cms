@@ -9,6 +9,7 @@ const initialState = {
   testimonials: [],
   hirings: {},
   bookings: {},
+  fixBookings: {},
 }
 
 export default function reducer(state = initialState, action) {
@@ -48,6 +49,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         bookings: action.payload
+      }
+    case 'DATA_FETCHED_FIXBOOKINGS':
+      return {
+        ...state,
+        fixBookings: action.payload
       }
     default:
       return state

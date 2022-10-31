@@ -128,6 +128,21 @@ export function getAllBookings() {
   }
 }
 
+export function getAllFixBookings() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: `https://yogzan-server-dev.herokuapp.com/fixbook?limit=1000`,
+        // url: `http://localhost:5000/book/`,
+      })
+      dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
 export function deleteGallery(id) {
   return async () => {
     try {
