@@ -15,8 +15,8 @@ export default function Book() {
     dispatch(getAllBookings())
     dispatch(getAllCategories())
   }, [])
-  const serviceFilter = categories.map(e => ({text: e.name, value: e.name}))
-  const serviceOnFilter = (value, record) => record.layanan?.indexOf(value) === 0
+  // const serviceFilter = categories.map(e => ({text: e.name, value: e.name}))
+  // const serviceOnFilter = (value, record) => record.layanan?.indexOf(value) === 0
 
   const renderDate = val => moment(val).isValid() ? moment(val).format('DD MMM YYYY') : <span className={styles.error}>{val}</span>
   
