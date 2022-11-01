@@ -6,9 +6,12 @@ import { Table } from 'antd'
 import moment from 'moment'
 import ButtonFIlter from '../../components/ButtonFIlter'
 import { useSearchParams } from 'react-router-dom'
+import { getDeviceType } from '../../utils'
 
 export default function Book() {
   moment.locale()
+  const device = getDeviceType()
+  const isDesktop = device === 'desktop'
   const dispatch = useDispatch()
   const {bookings, categories, fixBookings} = useSelector(s => s)
   const [searchParams, setSearchParams] = useSearchParams()
@@ -38,31 +41,31 @@ export default function Book() {
   const renderDate = val => moment(val).isValid() ? moment(val).format('DD MMM YYYY') : <span className={styles.error}>{val}</span>
   
   const columnsTableBooking = [
-    { dataIndex: "idx", title: "No.", width: '4rem', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "name", title: "Nama", width: '10rem', fixed: 'left' },
-    { dataIndex: "layanan", title: "Layanan", width: '8rem' },
-    { dataIndex: "city", title: "Kota", width: '8rem' },
-    { dataIndex: "date", title: "Tanggal Pemotretan", width: '8rem', render: renderDate },
-    { dataIndex: "phone", title: "No. Whatsapp", width: '8rem' },
-    { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: '8rem', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: '8rem', render: renderDate },
+    { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "name", title: "Nama", width: isDesktop ? '10rem' : '160px', fixed: 'left' },
+    { dataIndex: "layanan", title: "Layanan", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "city", title: "Kota", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "date", title: "Tanggal Pemotretan", width: isDesktop ? '8rem' : '128px', render: renderDate },
+    { dataIndex: "phone", title: "No. Whatsapp", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: isDesktop ? '8rem' : '128px', ellipsis: true },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDate },
   ]
 
   const columnsTableFixBooking = [
-    { dataIndex: "idx", title: "No.", width: '4rem', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "fullname", title: "Nama Lengkap", width: '10rem', fixed: 'left' },
-    { dataIndex: "date", title: "Tanggal", width: '8rem', render: renderDate, fixed: 'left' },
-    { dataIndex: "time", title: "Waktu", width: '5rem', fixed: 'left' },
-    { dataIndex: "nickname", title: "Nama Panggilan", width: '10rem' },
-    { dataIndex: "layanan", title: "Layanan", width: '8rem' },
-    { dataIndex: "campus", title: "Asal Kampus", width: '8rem' },
-    { dataIndex: "faculty", title: "Fakultas / Jurusan", width: '8rem' },
-    { dataIndex: "ig", title: "Akun Instagram", width: '8rem' },
-    { dataIndex: "ig-mua", title: "Instagram MUA", width: '8rem' },
-    { dataIndex: "ig-attire", title: "Instagram Attire", width: '8rem' },
-    { dataIndex: "phone", title: "No. Whatsapp", width: '8rem' },
-    { dataIndex: "location", title: "Lokasi Pemotretan", width: '8rem' },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: '8rem', render: renderDate },
+    { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "fullname", title: "Nama Lengkap", width: isDesktop ? '10rem' : '160px', fixed: 'left' },
+    { dataIndex: "date", title: "Tanggal", width: isDesktop ? '8rem' : '128px', render: renderDate, fixed: 'left' },
+    { dataIndex: "time", title: "Waktu", width: isDesktop ? '5rem' : '72px', fixed: 'left' },
+    { dataIndex: "nickname", title: "Nama Panggilan", width: isDesktop ? '10rem' : '160px' },
+    { dataIndex: "layanan", title: "Layanan", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "campus", title: "Asal Kampus", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "faculty", title: "Fakultas / Jurusan", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "ig", title: "Akun Instagram", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "ig-mua", title: "Instagram MUA", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "ig-attire", title: "Instagram Attire", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "phone", title: "No. Whatsapp", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "location", title: "Lokasi Pemotretan", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDate },
   ]
 
   const dataBooking = type === 'Booking' ? bookings : fixBookings
@@ -84,7 +87,7 @@ export default function Book() {
       <Table 
         dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={columnsTable}
-        pagination={{position: ['bottomLeft'], pageSize: 10}}
+        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5}}
         scroll={{y: 'fit-content'}}
       />
     </section>

@@ -3,10 +3,13 @@ import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllHirings } from '../../store/action'
 import { Table } from 'antd'
+import { getDeviceType } from '../../utils'
 
 export default function Career() {
+  const device = getDeviceType()
   const dispatch = useDispatch()
   const {hirings} = useSelector(s => s)
+  const isDesktop = device === 'desktop'
   useEffect(() => {
     dispatch(getAllHirings())
     window.scrollTo(0,0)
@@ -31,22 +34,22 @@ export default function Career() {
   const reqLink = new RegExp(/^(ftp|http|https):\/\/[^ "]+$/);
   const isLink = value => reqLink.test(value)
   const renderLink = val => isLink(val) ? <a href={val} target="_blank" rel="noreferrer">{val}</a> : val
-  
+
   const columnsTable = [
-    { dataIndex: "idx", title: "No.", width: '5rem', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "fullname", title: "Nama", width: '10rem', fixed: 'left' },
-    { dataIndex: "nickname", title: "Panggilan", width: '8rem' },
-    { dataIndex: "email", title: "Email", width: '15rem' },
-    { dataIndex: "phone", title: "Nomor HP", width: '8rem' },
-    { dataIndex: "address", title: "Alamat", width: '15rem', ellipsis: true },
-    { dataIndex: "workingHour", title: "Waktu Kerja", width: '10rem', filters: workingHourFilter, onFilter: workingHourOnFilter },
-    { dataIndex: "camera", title: "Kamera", width: '8rem', ellipsis: true },
-    { dataIndex: "lens", title: "Lensa", width: '8rem', ellipsis: true },
-    { dataIndex: "accessories", title: "Aksesoris", width: '8rem', ellipsis: true },
-    { dataIndex: "cv", title: "Link CV", width: '10rem', render: renderLink },
-    { dataIndex: "portfolio", title: "Link Portfolio", width: '10rem', render: renderLink },
-    { dataIndex: "fee", title: "Fee", width: '10rem', filters: feeFilters, onFilter: feeOnFilter },
-    { dataIndex: "experience", title: "Pengalaman", width: '20rem', ellipsis: true },
+    { dataIndex: "idx", title: "No.", width: isDesktop ? '5rem' : '72px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "fullname", title: "Nama", width: isDesktop ? '10rem' : '160px', fixed: 'left' },
+    { dataIndex: "nickname", title: "Panggilan", width: isDesktop ? '8rem' : '128px' },
+    { dataIndex: "email", title: "Email", width: isDesktop ? '15rem' : '240px' },
+    { dataIndex: "phone", title: "Nomor HP", width: isDesktop ? '10rem' : '160px' },
+    { dataIndex: "address", title: "Alamat", width: isDesktop ? '15rem' : '240px', ellipsis: true },
+    { dataIndex: "workingHour", title: "Waktu Kerja", width: isDesktop ? '10rem' : '160px', filters: workingHourFilter, onFilter: workingHourOnFilter },
+    { dataIndex: "camera", title: "Kamera", width: isDesktop ? '8rem' : '128px', ellipsis: true },
+    { dataIndex: "lens", title: "Lensa", width: isDesktop ? '8rem' : '128px', ellipsis: true },
+    { dataIndex: "accessories", title: "Aksesoris", width: isDesktop ? '8rem' : '128px', ellipsis: true },
+    { dataIndex: "cv", title: "Link CV", width: isDesktop ? '10rem' : '160px', render: renderLink },
+    { dataIndex: "portfolio", title: "Link Portfolio", width: isDesktop ? '10rem' : '160px', render: renderLink },
+    { dataIndex: "fee", title: "Fee", width: isDesktop ? '10rem' : '160px', filters: feeFilters, onFilter: feeOnFilter },
+    { dataIndex: "experience", title: "Pengalaman", width: isDesktop ? '20rem' : '240px', ellipsis: true },
   ]
 
   return (
@@ -55,7 +58,7 @@ export default function Career() {
       <Table 
         dataSource={hirings.data ? hirings.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={columnsTable}
-        pagination={{position: ['bottomLeft'], pageSize: 10}}
+        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5}}
         scroll={{y: 'fit-content'}}
       />
     </section>

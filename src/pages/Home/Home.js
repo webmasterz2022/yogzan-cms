@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <section className={styles.root}>
-      <h2>List Mini Galeri</h2>
+      <h3>List Mini Galeri</h3>
       <div className={styles.galleries}>
         <div className={styles.uploads}>
           {images.length > 0 && Array.from({length: 13}).map((e, i) => (

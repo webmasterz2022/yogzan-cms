@@ -76,3 +76,44 @@
   width: 0.5rem;
   height: 0.5rem;
 }
+
+@media only screen and (max-width: 768px) {
+  .root > label {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  
+  .root > div {
+    width: 90px;
+    height: 90px;
+    border: dashed gray 1px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    margin-top: 10px;
+  }
+  
+  .root span {
+    font-size: 14px;
+  }
+  
+  .root > div > label {
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .root > div > label > div > img {
+    height: 16px;
+  }
+  
+  .root button {
+    width: 16px;
+    border-radius: 8px;
+    bottom: 87px;
+    left: 55px;
+  }
+  
+  .root button img {
+    width: 8px;
+    height: 8px;
+  }
+}

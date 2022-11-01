@@ -46,3 +46,35 @@
   margin-right: 1rem;
 }
 
+@media only screen and (max-width: 768px) {
+  .root {
+    border-radius: 4px;
+    margin-top: 24px;
+    padding-left: 16px;
+  }
+  
+  .root > .container {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  
+  .root > .container > span div {
+    height: 128px;
+    width: 128px;
+  }
+  
+  .root > .container > span img {
+    object-fit: contain;
+    width: 128px;
+    height: 128px;
+  }
+  
+  
+  .root > div:last-child {
+    padding: 16px;
+  }
+  
+  .root > div:last-child > .groupButton > button {
+    margin-right: 16px;
+  }
+}

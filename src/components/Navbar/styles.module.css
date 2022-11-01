@@ -41,9 +41,14 @@
   margin-right: 1rem;
 }
 
+.root > div:nth-of-type(2) > button {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
 @media only screen and (max-width: 768px) {
   .root {
-    bottom: 24px;
+    bottom: 16px;
     width: fill;
     justify-content: center;
     background: unset;
@@ -52,9 +57,17 @@
   .root > img {
     display: none;
   }
+
+  .root > div:nth-of-type(2) {
+    position: fixed;
+    top: 0;
+    padding: 16px 40px;
+    width: 100%;
+    justify-content: space-between;
+    background: linear-gradient(7.14deg, #FFF5F1 -1%, #FFFFFF -7.58%, #FCE6DD 100.1%);
+  }
   
   .menuBar {
-    position: fixed;
     border-radius: 40px;
     box-shadow: 0px 11px 12px -4px rgba(138, 132, 130, 0.21);
     background-color: var(--gray-25);
@@ -79,6 +92,10 @@
     width: 24px;
   }
 
+  .root > div:nth-of-type(2) > button {
+    padding: 16px;
+    border-radius: 4px;
+  }
 }
 
 @media only screen and (max-width: 435px) {
