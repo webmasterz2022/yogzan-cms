@@ -55,7 +55,7 @@ export default function Book() {
     { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
     { dataIndex: "fullname", title: "Nama Lengkap", width: isDesktop ? '10rem' : '160px', fixed: 'left' },
     { dataIndex: "date", title: "Tanggal", width: isDesktop ? '8rem' : '128px', render: renderDate, fixed: 'left' },
-    { dataIndex: "time", title: "Waktu", width: isDesktop ? '5rem' : '72px', fixed: 'left' },
+    { dataIndex: "time", title: "Waktu", width: isDesktop ? '5rem' : '72px' },
     { dataIndex: "nickname", title: "Nama Panggilan", width: isDesktop ? '10rem' : '160px' },
     { dataIndex: "layanan", title: "Layanan", width: isDesktop ? '8rem' : '128px' },
     { dataIndex: "campus", title: "Asal Kampus", width: isDesktop ? '8rem' : '128px' },
