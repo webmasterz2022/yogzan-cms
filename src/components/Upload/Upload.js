@@ -5,7 +5,7 @@ import redcross from '../../assets/ic-red-cross.svg'
 import upload from '../../assets/ic-upload-v2.svg'
 
 function Upload_V2(props) {
-  const { className, input, inputProps, data, label, helper, meta, deleteFile } = props;
+  const { className, input, inputProps, data, label, helper, meta, deleteFile, isLoading } = props;
   const { dirty, error, touched } = meta;
   const inputRef = useRef(null);
 
@@ -34,8 +34,8 @@ function Upload_V2(props) {
             </>
           ) : (
             <div>
-              <img src={upload} />
-              Upload
+              {!isLoading && <img src={upload} />}
+              {isLoading ? 'Uploading...' : 'Upload'}
             </div>
           )}
           {!data?.src && <input id={input.name} ref={inputRef} {...input} {...inputProps} type="file" />}

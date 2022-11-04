@@ -68,7 +68,7 @@ export default function Navbar() {
     window.location.href = '/login'
   }
 
-  if(pathname === routes.LOGIN()) {
+  if(pathname === routes.LOGIN() || pathname === routes.REGISTER()) {
     return null
   }
 

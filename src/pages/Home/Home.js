@@ -16,7 +16,7 @@ import imageCompression from 'browser-image-compression';
 export default function Home() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { homepageImages, categories, testimonials } = useSelector(s => s)
+  const { homepageImages, categories, testimonials, isLoading } = useSelector(s => s)
   const [images, setImages] = useState(homepageImages)
 
   useEffect(() => {
@@ -42,11 +42,12 @@ export default function Home() {
     }
   }
 
-  const changeFile = async e => {
+  const changeFile = async (e, idx) => {
+    dispatch({type: 'SET_LOADING', key: `uploadHomepage-${idx}`, payload: true})
     const name = e.target.files[0].name
     const compress = await imageCompression(e.target.files[0], {maxSizeMB: 0.5})
     const file = await fileToBase64(compress)
-    dispatch(uploadHomepageGallery(file, name))
+    dispatch(uploadHomepageGallery(file, name, idx))
   }
 
   return (
@@ -58,9 +59,10 @@ export default function Home() {
             <Upload 
               meta={{}} 
               data={{...images[i], src: images[i]?.url}} 
-              input={{onChange: changeFile}}
+              input={{onChange: (el) => changeFile(el, i)}}
               deleteFile={() => deleteFile(images[i], i)}
               key={i}
+              isLoading={isLoading[`uploadHomepage-${i}`]}
             />
           ))} 
         </div>
@@ -68,10 +70,18 @@ export default function Home() {
           <p>Daftar Layanan</p>
           <div>
             {categories.map(category => (
-              <CategoryCard key={category.name} {...category} title={category.name} id={category._id} />
+              <CategoryCard
+                key={category.name}
+                {...category}
+                title={category.name}
+                id={category._id} 
+                isLoadingSubmit={isLoading[`updateCategory-${category._id}`]}
+                isLoadingDelete={isLoading[`deleteCategory-${category._id}`]}
+                toggleValue={category.displayOnHomepage}
+              />
             ))}
           </div>
-          <CategoryCard isNew />
+          <CategoryCard isNew isLoadingSubmit={isLoading.addCategory}/>
         </div>
       </div>
       <div className={styles.testimonials}>
@@ -85,9 +95,14 @@ export default function Home() {
               name={e.name}
               link={e.link}
               id={e._id}
+              isLoadingDelete={isLoading[`deleteTestimony-${e._id}`]}
+              isLoadingSubmit={isLoading[`updateTestimony-${e._id}`]}
             />
           ))}
-          <CardTestimony isNew />
+          <CardTestimony 
+            isNew 
+            isLoadingSubmit={isLoading.addTestimony}
+          />
         </div>
       </div>
     </section>

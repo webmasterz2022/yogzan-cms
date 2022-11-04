@@ -5,10 +5,13 @@
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1rem;
+  border-radius: 0.25rem;
+}
+
+.root > div:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
 }
 
 .active {
@@ -16,6 +19,15 @@
   border: 1px solid var(--gray-800);
   font-weight: 700;
 }
+
+.root > .usetoggle {
+  margin-top: 0.5rem;
+}
+
+.root > div:last-child > .switch span::before{
+  left: 0.125rem;
+}
+
 
 @media only screen and (max-width: 768px) {
   .root {
@@ -25,5 +37,13 @@
     border-radius: 4px;
     width: auto;
     white-space: nowrap;
+  }
+
+  .root > .usetoggle {
+    margin-top: 8px;
+  }
+  
+  .root > div:last-child > .switch span::before{
+    left: 2px;
   }
 }

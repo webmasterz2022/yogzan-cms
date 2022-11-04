@@ -9,6 +9,7 @@ import './App.css';
 import Career from './pages/Career';
 import Book from './pages/Book';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path={routes.CAREER()} element={<Career />} />
             <Route path={routes.BOOK()} element={<Book />} />
             <Route path={routes.LOGIN()} element={<Login />} />
+            <Route path={routes.REGISTER()} element={<Register />} />
           </Routes>
       </div>
     </AppContextProvider>

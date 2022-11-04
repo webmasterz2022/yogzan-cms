@@ -57,10 +57,6 @@
   row-gap: 1rem;
 }
 
-.galleries > div {
-  
-}
-
 @media only screen and (max-width: 768px) {
   .root {
     margin-top: 0px;
@@ -158,99 +154,5 @@
     flex-wrap: wrap;
     column-gap: 16px;
     row-gap: 0;
-  }
-
-  .galleries > div {
-    flex: 47.14%;
-    max-width: 47.14%;
-  }
-  
-  .galleries > div > div {
-    width: 100%;
-    border-radius: 4px;
-    margin-bottom: 16px;
-  }
-
-  .galleries > div > div.vertical {
-    height: 55vh;
-  }
-  
-  .galleries > div > div.horizontal {
-    height: 25vh;
-  }
-
-  .preview {
-    width: 85vw;
-  } 
-
-  .preview > img {
-    width: 68vw;
-    border-radius: 4px 4px 0 0;
-  }
-
-  .vertical > img {
-    height: 52vh;
-  }
-
-  .horizontal > img {
-    height: 30vh;
-  }
-
-  .preview > div {
-    width: fill;
-  }
-
-  .preview > div {
-    padding: 16px;
-    background-color: var(--gray-25);
-    width: fill;
-    border-radius: 0 0 4px 4px;
-  }
-  
-  .preview > div > h4 {
-    font-size: 18px;
-    line-height: 20px;
-    margin-bottom: 18px;
-  }
-  
-  .preview > div > p {
-    font-size: 14px;
-    line-height: 20px;
-    margin-bottom: 8px;
-  }
-  
-  .preview > div > div > div {
-    padding: 4px 8px;
-    margin-right: 8px;
-    border-radius: 4px;
-  }
-  
-  .preview > div > div > div > img {
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-  }
-  
-  .preview > div > div > div > p {
-    font-size: 10px;
-    line-height: 12px;
-  }
-
-  .preview > .modalNav {
-    top: 16px;
-  }
-  
-  .preview > .modalNav > img {
-    height: 40px;
-  }
-}
-
-@media only screen and (max-width: 425px) {
-  .galleries > div > div.vertical {
-    height: 35vh;
-  }
-  
-  .galleries > div > div.horizontal {
-    height: 13vh;
   }
 }

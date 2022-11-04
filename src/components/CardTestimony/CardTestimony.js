@@ -10,21 +10,22 @@ import { useDispatch } from 'react-redux'
 import { addTestimony, deleteTestimony, updateTestimony } from '../../store/action'
 
 export default function CardTestimony(props) {
-  const { image, desc, name, link, isNew, id } = props
+  const { image, desc, name, link, isNew, id, isLoadingDelete, isLoadingSubmit } = props
   const classname = [styles.root, isNew ? styles.new : ''].join(' ')
   const dispatch = useDispatch()
   const [username, setUsername] = useState('')
   const [imageName, setImageName] = useState('')
-  const [images, setImages] = useState(null)
+  const [images, setImages] = useState('')
   const [testimony, setTestimony] = useState('')
   const [url, setUrl] = useState('')
+  const [localLoading, setLocalLoading] = useState(false)
 
   useEffect(() => {
     setUsername(name || '')
   }, [name])
 
   useEffect(() => {
-    setImages(image || null)
+    setImages(image || '')
   }, [image])
 
   useEffect(() => {
@@ -37,16 +38,18 @@ export default function CardTestimony(props) {
 
   const handleChangeImage = async e => {
     e.persist()
+    setLocalLoading(true)
     setImageName(e.target.files[0].name)
     const compressed = await imageCompression(e.target.files[0], {maxSizeMB: 0.5})
     const converted = await fileToBase64(compressed)
     setImages(converted)
+    setLocalLoading(false)
   }
 
   const submit = () => {
     const cb = () => {
       setImageName('')
-      setImages(null)
+      setImages('')
       setUsername('')
       setUrl('')
       setTestimony('')
@@ -63,8 +66,10 @@ export default function CardTestimony(props) {
   }
 
   const deleteImage = () => {
-    setImages(null)
+    setImages('')
   }
+
+  const disabledButton = image === images && name === username && desc === testimony && link === url
 
   return (
     <div className={classname}>
@@ -75,6 +80,7 @@ export default function CardTestimony(props) {
           input={{onChange: handleChangeImage}}
           deleteFile={deleteImage}
           label="Foto Klien" 
+          isLoading={localLoading}
         />
         <TextArea
           label="Testimoni"
@@ -94,8 +100,15 @@ export default function CardTestimony(props) {
           label='Link Sosial Media'
         />
       </div>
-      <Button handleClick={submit} variant="active-square">Simpan</Button>
-      {!isNew && <Button handleClick={remove}>Hapus</Button>}
+      <Button
+        handleClick={submit}
+        variant="active-square"
+        isLoading={isLoadingSubmit}
+        disabled={isNew ? false : disabledButton}
+      >
+        Simpan
+      </Button>
+      {!isNew && <Button handleClick={remove} isLoading={isLoadingDelete}>Hapus</Button>}
     </div>
   )
 }
