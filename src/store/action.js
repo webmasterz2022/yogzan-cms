@@ -7,7 +7,7 @@ export function login(form) {
       dispatch({type: 'SET_LOADING', key: 'login', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: 'https://yogzan-server-stage.herokuapp.com/users/login',
+        url: 'https://yogzan-server.herokuapp.com/users/login',
         data: form
       })
       localStorage.setItem('token', data.access_token)
@@ -28,7 +28,7 @@ export function register(form) {
       dispatch({type: 'SET_LOADING', key: 'register', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: 'https://yogzan-server-stage.herokuapp.com/users/register',
+        url: 'https://yogzan-server.herokuapp.com/users/register',
         data: form
       })
       dispatch({type: 'SET_LOADING', key: 'register', payload: false})
@@ -47,7 +47,7 @@ export function getHomepageImages() {
       dispatch({type: 'SET_LOADING', key: 'homepage', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: 'https://yogzan-server-stage.herokuapp.com/gallery/homepage',
+        url: 'https://yogzan-server.herokuapp.com/gallery/homepage',
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_HOMEPAGE' })
     } catch (error) {
@@ -61,8 +61,8 @@ export function getPortfolioImages(category, city) {
     try {
       dispatch({type: 'SET_LOADING', key: 'portfolio', payload: true})
       const url = (category && category !== 'Semua') ? 
-        `https://yogzan-server-stage.herokuapp.com/gallery/category/${category}${city ? `?city=${city}` : ''}` :
-        `https://yogzan-server-stage.herokuapp.com/gallery/${city ? `?city=${city}` : ''}`
+        `https://yogzan-server.herokuapp.com/gallery/category/${category}${city ? `?city=${city}` : ''}` :
+        `https://yogzan-server.herokuapp.com/gallery/${city ? `?city=${city}` : ''}`
       const { data } = await axios({
         method: 'get',
         url
@@ -90,7 +90,7 @@ export function addPortfolio(portfolio, cb) {
       form.append('city', portfolio.city)
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-stage.herokuapp.com/gallery/upload`,
+        url: `https://yogzan-server.herokuapp.com/gallery/upload`,
         // url: `http://localhost:5000/gallery/upload`,
         data: form,
         headers: {
@@ -127,7 +127,7 @@ export function updatePortfolio(portfolio, id) {
       form.append('city', portfolio.city)
       const { data } = await axios({
         method: 'put',
-        url: `https://yogzan-server-stage.herokuapp.com/gallery/${id}`,
+        url: `https://yogzan-server.herokuapp.com/gallery/${id}`,
         // url: `http://localhost:5000/gallery/${id}`,
         data: form,
         headers: {
@@ -148,7 +148,7 @@ export function deletePortfolio(category, id) {
       dispatch({type: 'SET_LOADING', key: `deletePortfolio-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://yogzan-server-stage.herokuapp.com/gallery/${id}`,
+        url: `https://yogzan-server.herokuapp.com/gallery/${id}`,
         // url: `http://localhost:5000/gallery/${id}`,
         headers: {
           access_token: localStorage.getItem('token')
@@ -169,7 +169,7 @@ export function getCities(category) {
       dispatch({type: 'SET_LOADING', key: 'city', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/gallery/list-city`
+        url: `https://yogzan-server.herokuapp.com/gallery/list-city`
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_CITY' })
     } catch (error) {
@@ -184,7 +184,7 @@ export function submitHiring(dataForm, cb) {
       dispatch({type: 'SET_LOADING', key: 'submitHiring', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-stage.herokuapp.com/hiring/submit`,
+        url: `https://yogzan-server.herokuapp.com/hiring/submit`,
         // url: `http://localhost:5000/hiring/submit`,
         data: dataForm
       })
@@ -203,7 +203,7 @@ export function getAllHirings() {
       dispatch({type: 'SET_LOADING', key: 'hiring', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/hiring?limit=1000`,
+        url: `https://yogzan-server.herokuapp.com/hiring?limit=1000`,
         // url: `http://localhost:5000/hiring/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_HIRINGS' })
@@ -219,7 +219,7 @@ export function submitBooking(dataBooking, cb) {
       dispatch({type: 'SET_LOADING', key: 'submitBooking', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-stage.herokuapp.com/book/submit`,
+        url: `https://yogzan-server.herokuapp.com/book/submit`,
         // url: `http://localhost:5000/book/submit`,
         data: dataBooking
       })
@@ -238,7 +238,7 @@ export function getAllBookings() {
       dispatch({type: 'SET_LOADING', key: 'booking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/book?limit=1000`,
+        url: `https://yogzan-server.herokuapp.com/book?limit=1000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
@@ -254,7 +254,7 @@ export function getAllFixBookings() {
       dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/fixbook?limit=1000`,
+        url: `https://yogzan-server.herokuapp.com/fixbook?limit=1000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
@@ -277,7 +277,7 @@ export function updateFixBooking(dataForm, cb) {
       delete payload.idx
       const { data } = await axios({
         method: 'put',
-        url: `https://yogzan-server-stage.herokuapp.com/fixbook/${_id}`,
+        url: `https://yogzan-server.herokuapp.com/fixbook/${_id}`,
         // url: `http://localhost:5000/fixbook/${_id}`,
         data: payload,
         headers: {
@@ -299,7 +299,7 @@ export function deleteGallery(id) {
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://yogzan-server-stage.herokuapp.com/gallery/${id}`,
+        url: `https://yogzan-server.herokuapp.com/gallery/${id}`,
         // url: `http://localhost:5000/gallery/${id}`,
       })
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: false})
@@ -322,7 +322,7 @@ export function uploadHomepageGallery(file, imageName, index) {
       form.append('images', convertedFile)
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-stage.herokuapp.com/gallery/upload-homepage`,
+        url: `https://yogzan-server.herokuapp.com/gallery/upload-homepage`,
         // url: `http://localhost:5000/gallery?id=${id}`,
         data: form,
         headers: {
@@ -344,7 +344,7 @@ export function getAllCategories() {
       dispatch({type: 'SET_LOADING', key: 'category', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/category`,
+        url: `https://yogzan-server.herokuapp.com/category`,
         // url: `http://localhost:5000/category`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_CATEGORY' })
@@ -366,7 +366,7 @@ export function addCategory(category, cb) {
       form.append('displayOnGallery', category.displayOnGallery ? true : false)
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-stage.herokuapp.com/category`,
+        url: `https://yogzan-server.herokuapp.com/category`,
         // url: `http://localhost:5000/category`,
         data: form,
         headers: {
@@ -400,7 +400,7 @@ export function updateCategory(id, category, cb) {
       form.append('displayOnGallery', category.displayOnGallery ? true : false)
       const { data } = await axios({
         method: 'put',
-        url: `https://yogzan-server-stage.herokuapp.com/category/update/${id}`,
+        url: `https://yogzan-server.herokuapp.com/category/update/${id}`,
         // url: `http://localhost:5000/category/update/${id}`,
         data: form,
         headers: {
@@ -423,7 +423,7 @@ export function deleteCategory(id) {
       dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://yogzan-server-stage.herokuapp.com/category/${id}`,
+        url: `https://yogzan-server.herokuapp.com/category/${id}`,
         // url: `http://localhost:5000/category/${id}`,
       })
       dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: false})
@@ -441,7 +441,7 @@ export function getAllTestimonies() {
       dispatch({type: 'SET_LOADING', key: 'testimony', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/testimony`,
+        url: `https://yogzan-server.herokuapp.com/testimony`,
         // url: `http://localhost:5000/testimony`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_TESTIMONY' })
@@ -463,7 +463,7 @@ export function addTestimony(testimony, cb) {
       form.append('desc', testimony.desc || '')
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-stage.herokuapp.com/testimony`,
+        url: `https://yogzan-server.herokuapp.com/testimony`,
         // url: `http://localhost:5000/testimony`,
         data: form,
         headers: {
@@ -497,7 +497,7 @@ export function updateTestimony(id, testimony, cb) {
       form.append('desc', testimony.desc)
       const { data } = await axios({
         method: 'put',
-        url: `https://yogzan-server-stage.herokuapp.com/testimony/${id}`,
+        url: `https://yogzan-server.herokuapp.com/testimony/${id}`,
         // url: `http://localhost:5000/testimony/${id}`,
         data: form,
         headers: {
@@ -520,7 +520,7 @@ export function deleteTestimony(id) {
       dispatch({type: 'SET_LOADING', key: `deleteTestimony-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://yogzan-server-stage.herokuapp.com/testimony/${id}`,
+        url: `https://yogzan-server.herokuapp.com/testimony/${id}`,
         // url: `http://localhost:5000/testimony/${id}`,
         headers: {
           access_token: localStorage.getItem('token')
