@@ -16,6 +16,7 @@ export function login(form) {
       dispatch({type: 'SET_LOADING', key: 'login', payload: false})
       window.location.href = '/'
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: 'login', payload: false})
       alert(error.message)
     }
   }
@@ -34,6 +35,7 @@ export function register(form) {
       alert('Berhasil Terdaftar! Silahkan login')
       window.location.href = '/login'
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: 'register', payload: false})
       alert(error.message)
     }
   }
@@ -99,6 +101,7 @@ export function addPortfolio(portfolio, cb) {
       cb()
       dispatch(getPortfolioImages(portfolio.category))
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `addPortfolio`, payload: false})
       
     }
   }
@@ -134,7 +137,7 @@ export function updatePortfolio(portfolio, id) {
       dispatch({type: 'SET_LOADING', key: `updatePortfolio-${id}`, payload: false})
       dispatch(getPortfolioImages(portfolio.category))
     } catch (error) {
-      
+      dispatch({type: 'SET_LOADING', key: `updatePortfolio-${id}`, payload: false})
     }
   }
 }
@@ -154,6 +157,7 @@ export function deletePortfolio(category, id) {
       dispatch({type: 'SET_LOADING', key: `deletePortfolio-${id}`, payload: false})
       dispatch(getPortfolioImages(category))
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `deletePortfolio-${id}`, payload: false})
       
     }
   }
@@ -187,6 +191,7 @@ export function submitHiring(dataForm, cb) {
       dispatch({type: 'SET_LOADING', key: 'submitHiring', payload: false})
       cb()
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: 'submitHiring', payload: false})
       alert(error.message)
     }
   }
@@ -221,6 +226,7 @@ export function submitBooking(dataBooking, cb) {
       dispatch({type: 'SET_LOADING', key: 'submitBooking', payload: false})
       cb()
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: 'submitBooking', payload: false})
       alert(error.message)
     }
   }
@@ -258,6 +264,35 @@ export function getAllFixBookings() {
   }
 }
 
+export function updateFixBooking(dataForm, cb) {
+  return async dispatch => {
+    const _id = {...dataForm}._id
+    try {
+      dispatch({type: 'SET_LOADING', key: `updateFixBooking-${_id}`, payload: true})
+      const payload = {...dataForm}
+      delete payload._id
+      delete payload.__v
+      delete payload.createdAt
+      delete payload.updatedAt
+      delete payload.idx
+      const { data } = await axios({
+        method: 'put',
+        url: `https://yogzan-server-dev.herokuapp.com/fixbook/${_id}`,
+        // url: `http://localhost:5000/fixbook/${_id}`,
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('token')
+        }
+      })
+      dispatch({type: 'SET_LOADING', key: `updateFixBooking-${_id}`, payload: false})
+      cb()
+      dispatch(getAllFixBookings())
+    } catch(error) {
+      dispatch({type: 'SET_LOADING', key: `updateFixBooking-${_id}`, payload: false})
+    }
+  }
+}
+
 export function deleteGallery(id) {
   return async (dispatch) => {
     try {
@@ -269,6 +304,7 @@ export function deleteGallery(id) {
       })
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: false})
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: false})
       alert(error.message)
     }
   }
@@ -296,6 +332,7 @@ export function uploadHomepageGallery(file, imageName, index) {
       dispatch({type: 'SET_LOADING', key: `uploadHomepage-${index}`, payload: false})
       dispatch(getHomepageImages())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `uploadHomepage-${index}`, payload: false})
       alert(error.message)
     }
   }
@@ -340,6 +377,7 @@ export function addCategory(category, cb) {
       cb()
       dispatch(getAllCategories())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: 'addCategory', payload: false})
       alert(error.message)
     }
   }
@@ -373,6 +411,7 @@ export function updateCategory(id, category, cb) {
       cb()
       dispatch(getAllCategories())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `updateCategory-${id}`, payload: false})
       alert(error.message)
     }
   }
@@ -390,6 +429,7 @@ export function deleteCategory(id) {
       dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: false})
       dispatch(getAllCategories())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: false})
       alert(error.message)
     }
   }
@@ -434,6 +474,7 @@ export function addTestimony(testimony, cb) {
       cb()
       dispatch(getAllTestimonies())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: 'addTEstimony', payload: false})
       alert(error.message)
     }
   }
@@ -467,6 +508,7 @@ export function updateTestimony(id, testimony, cb) {
       cb()
       dispatch(getAllTestimonies())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `updateTestimony-${id}`, payload: false})
       alert(error.message)
     }
   }
@@ -487,6 +529,7 @@ export function deleteTestimony(id) {
       dispatch({type: 'SET_LOADING', key: `deleteTestimony-${id}`, payload: false})
       dispatch(getAllTestimonies())
     } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `deleteTestimony-${id}`, payload: false})
       alert(error.message)
     }
   }

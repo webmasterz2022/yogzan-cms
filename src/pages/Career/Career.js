@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllHirings } from '../../store/action'
 import { Table } from 'antd'
 import { getDeviceType } from '../../utils'
+import Button from '../../components/Button'
+import exportFromJson from 'export-from-json'
+import moment from 'moment'
 
 export default function Career() {
   const device = getDeviceType()
@@ -37,7 +40,7 @@ export default function Career() {
 
   const columnsTable = [
     { dataIndex: "idx", title: "No.", width: isDesktop ? '5rem' : '72px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "fullname", title: "Nama", width: isDesktop ? '10rem' : '160px', fixed: 'left' },
+    { dataIndex: "fullname", title: "Nama", width: isDesktop ? '10rem' : '160px' },
     { dataIndex: "nickname", title: "Panggilan", width: isDesktop ? '8rem' : '128px' },
     { dataIndex: "email", title: "Email", width: isDesktop ? '15rem' : '240px' },
     { dataIndex: "phone", title: "Nomor HP", width: isDesktop ? '10rem' : '160px' },
@@ -52,9 +55,42 @@ export default function Career() {
     { dataIndex: "experience", title: "Pengalaman", width: isDesktop ? '20rem' : '240px', ellipsis: true },
   ]
 
+  const downloadExcel = () => {
+    const data = hirings.data.map((el, i) => ({
+      'No.': i+1,
+      'Nama Lengkap': el.fullname,
+      'Nama Panggilan': el.nickname,
+      'Email': el.email,
+      'No. Whatsapp': el.phone ? `'${el.phone}` : '',
+      'Alamat': el.address,
+      'Waktu Kerja': el.workingHour,
+      'Kamera': el.camera,
+      'Lensa': el.lens,
+      'Aksesoris': el.accessories,
+      'Link CV': el.cv,
+      'Link Portfolio': el.portfolio,
+      'Fee': el.fee,
+      'Pengalaman': el.experience,
+      'Tanggal Submit': moment(el.createdAt).format('dddd, DD MMM YYYY')
+    }))
+    exportFromJson({
+      data,
+      fileName: `${moment().format('YYYYMMDD')}-Candidate`,
+      exportType: 'xls'
+    })
+  }
+
   return (
     <section className={styles.root}>
       <h1>List Kandidat</h1>
+      <Button 
+        className={styles.buttonDownload} 
+        handleClick={downloadExcel} 
+        variant="active-square"
+        disabled={!hirings.data}
+      >
+        Download Excel
+      </Button>
       <Table 
         dataSource={hirings.data ? hirings.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={columnsTable}

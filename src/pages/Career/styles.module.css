@@ -28,6 +28,11 @@
   color: white; */
 }
 
+.buttonDownload {
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
 @media only screen and (max-width: 768px) {
   .root {
     padding: 72px 16px;
@@ -49,4 +54,11 @@
     color: white; */
   }
   
+  .buttonDownload {
+    align-self: flex-start;
+    margin-bottom: 16px;
+    margin-left: 8px;
+    padding: 16px;
+  }
+
 }
