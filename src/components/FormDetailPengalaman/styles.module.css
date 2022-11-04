@@ -1,0 +1,60 @@
+.root > p {
+  text-align: left;
+  font-family: 'Avenir', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.root > div:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.root > div:last-child {
+  display: flex;
+  width: fill;
+  justify-content: space-between;
+}
+
+.root > div:last-child > button {
+  width: fill;
+  padding: 1rem;
+}
+
+.root > div:last-child > button:first-child {
+  margin-right: 1.5rem;
+  background-color: #D1D1D6;
+  color: #515151;
+}
+
+.photoshootExtended {
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root > p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
+
+  .root > div:not(:last-child) {
+    margin-bottom: 24px;
+  }
+  
+  .root > div:last-child > button {
+    padding: 16px;
+    border-radius: 4px;
+  }
+  
+  .root > div:last-child > button:first-child {
+    margin-right: 24px;
+  }
+
+  .photoshootExtended {
+    margin-top: -8px;
+    margin-bottom: 8px;
+  }
+}

@@ -1,0 +1,64 @@
+.root {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.root > h1 {
+  margin-bottom: 2.5rem;
+  text-align: left;
+  align-self: flex-start;
+  margin-left: 1rem;
+}
+
+.root > div:nth-child(1) {
+  padding: 1rem;
+  width: fit-content !important;
+  height: fit-content !important;
+}
+
+.root > div:nth-child(1) table {
+  background-color: white;
+  font-size: 0.625rem;
+}
+
+.root > div table > thead > tr > th {
+  /* background-color: var(--primary) !important;
+  color: white; */
+}
+
+.buttonDownload {
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    padding: 72px 16px;
+  }
+
+  .root > div:nth-child(1) {
+    padding: 16px;
+    width: fit-content !important;
+    height: fit-content !important;
+  }
+
+  .root > div:nth-child(1) table {
+    background-color: white;
+    font-size: 10px;
+  }
+
+  .root > div table > thead > tr > th {
+    /* background-color: var(--primary) !important;
+    color: white; */
+  }
+  
+  .buttonDownload {
+    align-self: flex-start;
+    margin-bottom: 16px;
+    margin-left: 8px;
+    padding: 16px;
+  }
+
+}
