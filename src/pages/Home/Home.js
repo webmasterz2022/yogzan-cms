@@ -12,12 +12,17 @@ import { useNavigate } from 'react-router-dom'
 import Upload from '../../components/Upload'
 import fileToBase64 from '../../utils/fileTobase64'
 import imageCompression from 'browser-image-compression';
+import { routes } from '../../configs/routes'
 
 export default function Home() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { homepageImages, categories, testimonials, isLoading } = useSelector(s => s)
   const [images, setImages] = useState(homepageImages)
+
+  if(!localStorage.getItem('token') && window.location.pathname !== routes.LOGIN()) {
+    navigate('/login')
+  }
 
   useEffect(() => {
     window.scrollTo(0,0)

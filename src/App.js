@@ -13,9 +13,6 @@ import Register from './pages/Register';
 
 
 function App() {
-  if(!localStorage.getItem('token') && window.location.pathname !== routes.LOGIN()) {
-    window.location.href = '/login'
-  }
   return (
   <BrowserRouter>
     <AppContextProvider>
