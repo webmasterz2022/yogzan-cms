@@ -71,7 +71,7 @@ export default function Career() {
       'Link Portfolio': el.portfolio,
       'Fee': el.fee,
       'Pengalaman': el.experience,
-      'Tanggal Submit': moment(el.createdAt).format('dddd, DD MMM YYYY')
+      'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
     }))
     exportFromJson({
       data,
@@ -94,7 +94,7 @@ export default function Career() {
       <Table 
         dataSource={hirings.data ? hirings.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={columnsTable}
-        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5}}
+        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5, showSizeChanger: false}}
         scroll={{y: 'fit-content'}}
       />
     </section>

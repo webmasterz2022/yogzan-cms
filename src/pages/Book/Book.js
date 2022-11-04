@@ -138,7 +138,7 @@ export default function Book() {
         'Layanan Dipilih': el.layanan,
         'Paket Dipilih': el.package,
         'Fotografer': el.photographer,
-        'Tanggal Pemotretan': moment(el.date).isValid() ? moment(el.date).format('dddd, DD MMM YYYY') : el.date,
+        'Tanggal Pemotretan': moment(el.date).isValid() ? moment(el.date).format('YYYY-MM-DD') : el.date,
         'Waktu Pemotretan': el.time,
         'Asal Kampus': el.campus,
         'Fakultas / Jurusan': el.faculty,
@@ -147,7 +147,7 @@ export default function Book() {
         'Instagram Attire': el['ig-attire'],
         'No. Whatsapp': el.phone ? `'${el.phone}` : '',
         'Lokasi Pemotretan': el.location,
-        'Tanggal Submit': moment(el.createdAt).format('dddd, DD MMM YYYY')
+        'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
       }))
     } else {
       data = bookings.data.map((el, i) => ({
@@ -155,10 +155,10 @@ export default function Book() {
         'Nama': el.name,
         'Layanan Dipilih': el.layanan,
         'Kota': el.city,
-        'Tanggal Pemotretan': moment(el.date).isValid() ? moment(el.date).format('dddd, DD MMM YYYY') : el.date,
+        'Tanggal Pemotretan': moment(el.date).isValid() ? moment(el.date).format('YYYY-MM-DD') : el.date,
         'No. Whatsapp': el.phone ? `'${el.phone}` : '',
         'Mengetahui Yogzan Dari': el.knowFrom,
-        'Tanggal Submit': moment(el.createdAt).format('dddd, DD MMM YYYY')
+        'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
       }))
     }
     exportFromJson({
@@ -197,7 +197,7 @@ export default function Book() {
         }}
         dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={mergedColumns}
-        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5}}
+        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5, showSizeChanger: false}}
         scroll={{y: 'fit-content'}}
       />
     </section>
