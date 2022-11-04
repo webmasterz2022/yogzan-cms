@@ -1,0 +1,231 @@
+.root {
+  background-color: var(--light-blue); 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.booking {
+  padding: 2.5rem 10.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: url('../../assets/image-bg-2.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.booking > div {
+  margin-right: 1rem;
+  align-self: stretch;
+}
+
+.booking > div > h3 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  color: var(--gray-800);
+  margin: 0;
+}
+
+.booking > div > p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: var(--gray-800);
+  font-family: 'Avenir', sans-serif;
+  max-width: 58.625rem;
+}
+
+.booking > button {
+  padding: 1rem;
+}
+
+.booking > button > p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.booking > button > p > img {
+  margin-left: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.details > div:first-child {
+  background-color: var(--gray-800);
+  padding: 2.5rem 10.25rem;
+  display: flex;
+}
+
+.details > div:first-child > div:first-child {
+  margin-right: 12.5rem;
+}
+
+.details > div:first-child > div:first-child > .logo {
+  width: 13.125rem;
+  height: 3.8125rem;
+  margin-bottom: 2.5rem;
+  margin-top: 1.125rem;
+}
+
+.details > div:first-child > div:first-child > div {
+  width: max-content;
+}
+
+.details > div:first-child > div:first-child > div > .socmed {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.details > div:first-child > div:nth-child(2) {
+  margin-right: 2rem;
+  white-space: nowrap;
+}
+
+.details > div:first-child > div:nth-child(2) > button {
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+}
+
+.details > div:first-child > div:nth-child(3) > p {
+  margin: 0;
+  margin-bottom: 1rem;
+  color: var(--gray-25);
+}
+
+.details > div:first-child > div:nth-child(3) > p:first-child {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 700;
+}
+
+.details > div:first-child > div:nth-child(3) > p:nth-child(2),
+.details > div:first-child > div:nth-child(3) > p:nth-child(3),
+.details > div:first-child > div:nth-child(3) > p:nth-child(4) {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+}
+
+.details > div:nth-child(2) {
+  background-color: var(--gray-800);
+  padding: 0 10.25rem 2.5rem;
+}
+
+.details > div:nth-child(2) > .line {
+  height: 0.125rem;
+  background-color: var(--gray-25);
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.email {
+  cursor: pointer;
+}
+
+.details > div:nth-child(2) > p {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  color: var(--gray-25);
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 768px) {  
+  .root > .booking {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+  }
+  
+  .booking > div > h3 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  
+  .booking > div > p {
+    font-size: 18px;
+    line-height: 24px;
+    max-width: unset;
+    text-align: center;
+  }
+  
+  .booking > button {
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 16px;
+    align-self: center;
+  }
+
+  .booking > button > p > img {
+    margin-left: 8px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .details > div:first-child {
+    padding: 40px;
+    display: block;
+  }
+  
+  .details > div:first-child > div:first-child {
+    margin-bottom: 32px;
+  }
+  
+  .details > div:first-child > div:first-child > .logo {
+    width: 280px;
+    height: 80px;
+    margin-bottom: 40px;
+  }
+  
+  .details > div:first-child > div:first-child > div > .socmed {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+  }
+  
+  .details > div:first-child > div:nth-child(2) {
+    display: none;
+  }
+  
+  .details > div:first-child > div:nth-child(3) > p {
+    margin: 0;
+    margin-bottom: 16px;
+  }
+  
+  .details > div:first-child > div:nth-child(3) > p:first-child {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  
+  .details > div:first-child > div:nth-child(3) > p:nth-child(2),
+  .details > div:first-child > div:nth-child(3) > p:nth-child(3),
+  .details > div:first-child > div:nth-child(3) > p:nth-child(4) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  
+  .details > div:nth-child(2) {
+    background-color: var(--gray-800);
+    padding: 0 40px 100px;
+  }
+  
+  .details > div:nth-child(2) > .line {
+    height: 2px;
+    margin-bottom: 24px;
+  }
+  
+  .details > div:nth-child(2) > p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}

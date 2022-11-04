@@ -1,0 +1,88 @@
+.root {
+  display: flex;
+  border-radius: 0.25rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  background-color: var(--white);
+  padding-left: 1rem;
+}
+
+.root > .container {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  overflow: hidden;
+  align-self: center;
+}
+
+.root > .container > span div {
+  height: 8rem;
+  width: 8rem;
+}
+
+.root > .container > span img {
+  object-fit: contain;
+  width: 8rem;
+  height: 8rem;
+}
+
+
+.root > div:last-child {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: flex-start;
+  width: 50%;
+}
+
+.root > div:last-child > div {
+  width: 100%;
+}
+
+.root > div:last-child > .groupButton {
+  display: flex;
+}
+
+.root > div:last-child > .groupButton > button {
+  margin-right: 1rem;
+}
+
+.root > div > .switch {
+  margin-bottom: 0.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    border-radius: 4px;
+    margin-top: 24px;
+    padding-left: 16px;
+  }
+  
+  .root > .container {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  
+  .root > .container > span div {
+    height: 128px;
+    width: 128px;
+  }
+  
+  .root > .container > span img {
+    object-fit: contain;
+    width: 128px;
+    height: 128px;
+  }
+  
+  
+  .root > div:last-child {
+    padding: 16px;
+  }
+  
+  .root > div:last-child > .groupButton > button {
+    margin-right: 16px;
+  }
+
+  .root > div > .switch {
+    margin-bottom: 8px;
+  }
+}

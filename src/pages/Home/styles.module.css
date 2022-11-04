@@ -1,0 +1,128 @@
+.root {
+  padding: 1.5rem 7.75rem;
+  text-align: left;
+}
+
+.galleries {
+  display: grid;
+  grid-template-columns: 44.875rem 28.125rem;
+  padding-top: 2.5rem;
+  height: auto;
+  column-gap: 1rem;
+}
+
+.uploads {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+}
+
+
+.galleries > div:nth-child(2) {
+  padding: 1.5rem;
+  background: linear-gradient(24.22deg, #D9F0F7 -46.53%, rgba(217, 240, 247, 0) 88.83%);
+  height: 35rem;
+  overflow: auto;
+}
+
+.galleries > div:nth-child(2) > p {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  margin: 0;
+}
+
+.testimonials {
+  padding-top: 5rem;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.root h3 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  color: var(--gray-800);
+  margin: 0;
+}
+
+.testimonials > p {
+  margin: 0;
+  margin-top: 0.5rem;
+  font-weight: 300;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--gray-800);
+  font-family: 'Avenir', sans-serif;
+}
+
+.testimonials > div:not(.overlayLeft, .overlayRight) {
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  overflow: auto;
+  margin-top: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    padding: 72px 40px 100px;
+  }
+  
+  .galleries {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    row-gap: 16px;
+  }
+  
+  .uploads {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 8px;
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+  
+  .galleries > div:nth-child(2) {
+    padding: 24px;
+    height: 300px;
+    width: fill;
+  }
+  
+  .galleries > div:nth-child(2) > p {
+    font-size: 14px;
+    line-height: 16px;
+  }
+  
+  .testimonials {
+    padding-top: 40px;
+  }
+  
+  .root h3 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  
+  .testimonials > p {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .testimonials > div {
+    padding-bottom: 24px;
+    margin-top: 24px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .root {
+    padding: 72px 8px 100px;
+  }
+}
