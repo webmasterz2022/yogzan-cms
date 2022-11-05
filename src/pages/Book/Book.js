@@ -9,14 +9,14 @@ import { useSearchParams } from 'react-router-dom'
 import { getDeviceType } from '../../utils'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-import exportFromJson from 'export-from-json'
+import xlsx from 'json-as-xlsx'
 
 export default function Book() {
   moment.locale()
   const device = getDeviceType()
   const isDesktop = device === 'desktop'
   const dispatch = useDispatch()
-  const {bookings, categories, fixBookings, isLoading} = useSelector(s => s)
+  const {bookings, fixBookings, isLoading} = useSelector(s => s)
   const [searchParams, setSearchParams] = useSearchParams()
   const type = searchParams.get('type')
   const [editingKey, setEditingKey] = useState('');
@@ -53,8 +53,6 @@ export default function Book() {
       dispatch(getAllFixBookings())
     }
   }, [type])
-  // const serviceFilter = categories.map(e => ({text: e.name, value: e.name}))
-  // const serviceOnFilter = (value, record) => record.layanan?.indexOf(value) === 0
 
   const renderDate = val => moment(val).isValid() ? moment(val).format('DD MMM YYYY') : <span className={styles.error}>{val}</span>
   
@@ -127,44 +125,58 @@ export default function Book() {
       }),
     };
   });
-  
-  const downloadExcel = () => {
-    let data
-    if(type === 'Fix Booking'){
-      data = fixBookings.data.map((el, i) => ({
-        'No.': i+1,
-        'Nama Lengkap': el.fullname,
-        'Nama Panggilan': el.nickname,
-        'Layanan Dipilih': el.layanan,
-        'Paket Dipilih': el.package,
-        'Fotografer': el.photographer,
-        'Tanggal Pemotretan': moment(el.date).isValid() ? moment(el.date).format('YYYY-MM-DD') : el.date,
-        'Waktu Pemotretan': el.time,
-        'Asal Kampus': el.campus,
-        'Fakultas / Jurusan': el.faculty,
-        'Akun Instagram': el.ig,
-        'Intagram MUA': el['ig-mua'],
-        'Instagram Attire': el['ig-attire'],
-        'No. Whatsapp': el.phone ? `'${el.phone}` : '',
-        'Lokasi Pemotretan': el.location,
-        'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
+
+  const downloadXlsx = () => {
+    let data;
+    const sheets = {}
+    dataBooking.data?.forEach(e => {
+      if(e.date) {
+        const currentSheet = moment(e.date).isValid() ? moment(e.date).format('YYYY MMMM') : e.date
+        if(!sheets[currentSheet]){
+          sheets[currentSheet] = []
+        }
+        sheets[currentSheet].push(e)
+      }
+    })
+    if(type === 'Fix Booking') {
+      data = Object.keys(sheets).map(e => ({
+        sheet: e,
+        columns: [
+          {label: 'Nama Lengkap', value: 'fullname'},
+          {label: 'Nama Panggilan', value: 'nickname'},
+          {label: 'Layanan Dipilih', value: 'layanan'},
+          {label: 'Paket Dipilih', value: 'package'},
+          {label: 'Fotografer', value: 'photographer'},
+          {label: 'Tanggal Pemotretan', value: row => moment(row.date).isValid() ? moment(row.date).format('YYYY-MM-DD') : row.date},
+          {label: 'Waktu Pemotretan', value: 'time'},
+          {label: 'Asal Kampus', value: 'campus'},
+          {label: 'Fakultas / Jurusan', value: 'faculty'},
+          {label: 'Akun Instagram', value: 'ig'},
+          {label: 'Intagram MUA', value: 'ig-mua'},
+          {label: 'Instagram Attire', value: 'ig-attire'},
+          {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
+          {label: 'Lokasi Pemotretan', value: 'location'},
+          {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD')},
+        ],
+        content: sheets[e]
       }))
     } else {
-      data = bookings.data.map((el, i) => ({
-        'No.': i+1,
-        'Nama': el.name,
-        'Layanan Dipilih': el.layanan,
-        'Kota': el.city,
-        'Tanggal Pemotretan': moment(el.date).isValid() ? moment(el.date).format('YYYY-MM-DD') : el.date,
-        'No. Whatsapp': el.phone ? `'${el.phone}` : '',
-        'Mengetahui Yogzan Dari': el.knowFrom,
-        'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
+      data = Object.keys(sheets).map(e => ({
+        sheet: e,
+        columns: [
+          {label: 'Nama', value: 'name'},
+          {label: 'Layanan Dipilih', value: 'layanan'},
+          {label: 'Kota', value: 'city'},
+          {label: 'Tanggal Pemotretan', value: row => moment(row.date).isValid() ? moment(row.date).format('YYYY-MM-DD') : row.date},
+          {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
+          {label: 'Mengetahui Yogzan Dari', value: 'knowFrom'},
+          {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD')},
+        ],
+        content: sheets[e]
       }))
     }
-    exportFromJson({
-      data,
+    xlsx(data, {
       fileName: `${moment().format('YYYYMMDD')}-${type}`,
-      exportType: 'xls'
     })
   }
 
@@ -183,7 +195,7 @@ export default function Book() {
       </div>
       <Button 
         className={styles.buttonDownload} 
-        handleClick={downloadExcel} 
+        handleClick={downloadXlsx} 
         variant="active-square"
         disabled={!dataBooking.data}
       >

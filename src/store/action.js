@@ -206,7 +206,7 @@ export function getAllHirings() {
         url: `https://yogzan-server-stage.herokuapp.com/hiring?limit=1000`,
         // url: `http://localhost:5000/hiring/`,
       })
-      dispatch({ payload: data, type: 'DATA_FETCHED_HIRINGS' })
+      dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
     } catch (error) {
       alert(error.message)
     }

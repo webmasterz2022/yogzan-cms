@@ -5,7 +5,7 @@ import { getAllHirings } from '../../store/action'
 import { Table } from 'antd'
 import { getDeviceType } from '../../utils'
 import Button from '../../components/Button'
-import exportFromJson from 'export-from-json'
+import xlsx from 'json-as-xlsx'
 import moment from 'moment'
 
 export default function Career() {
@@ -55,28 +55,30 @@ export default function Career() {
     { dataIndex: "experience", title: "Pengalaman", width: isDesktop ? '20rem' : '240px', ellipsis: true },
   ]
 
-  const downloadExcel = () => {
-    const data = hirings.data.map((el, i) => ({
-      'No.': i+1,
-      'Nama Lengkap': el.fullname,
-      'Nama Panggilan': el.nickname,
-      'Email': el.email,
-      'No. Whatsapp': el.phone ? `'${el.phone}` : '',
-      'Alamat': el.address,
-      'Waktu Kerja': el.workingHour,
-      'Kamera': el.camera,
-      'Lensa': el.lens,
-      'Aksesoris': el.accessories,
-      'Link CV': el.cv,
-      'Link Portfolio': el.portfolio,
-      'Fee': el.fee,
-      'Pengalaman': el.experience,
-      'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
-    }))
-    exportFromJson({
-      data,
+  const downloadXlsx = () => {
+    const data = [{
+      sheet: 'Candidate',
+      columns: [
+        {label: 'No.', value: (row) => row.idx},
+        {label: 'Nama Lengkap', value: 'fullname'},
+        {label: 'Nama Panggilan', value: 'nickname'},
+        {label: 'Email', value: 'email'},
+        {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
+        {label: 'Alamat', value: 'address'},
+        {label: 'Waktu Kerja', value: 'workingHour'},
+        {label: 'Kamera', value: 'camera'},
+        {label: 'Lensa', value: 'lens'},
+        {label: 'Aksesoris', value: 'accessories'},
+        {label: 'Link CV', value: 'cv'},
+        {label: 'Link Portfolio', value: 'portfolio'},
+        {label: 'Fee', value: 'fee'},
+        {label: 'Pengalaman', value: 'experience'},
+        {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD')}
+      ],
+      content: hirings.data
+    }]
+    xlsx(data, {
       fileName: `${moment().format('YYYYMMDD')}-Candidate`,
-      exportType: 'xls'
     })
   }
 
@@ -85,14 +87,14 @@ export default function Career() {
       <h1>List Kandidat</h1>
       <Button 
         className={styles.buttonDownload} 
-        handleClick={downloadExcel} 
+        handleClick={downloadXlsx} 
         variant="active-square"
         disabled={!hirings.data}
       >
         Download Excel
       </Button>
       <Table 
-        dataSource={hirings.data ? hirings.data.map((e, i) => ({...e, idx: i+1})) : []}
+        dataSource={hirings.data ? hirings.data : []}
         columns={columnsTable}
         pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5, showSizeChanger: false}}
         scroll={{y: 'fit-content'}}
