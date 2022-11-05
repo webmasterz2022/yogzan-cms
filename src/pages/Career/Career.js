@@ -5,7 +5,6 @@ import { getAllHirings } from '../../store/action'
 import { Table } from 'antd'
 import { getDeviceType } from '../../utils'
 import Button from '../../components/Button'
-import exportFromJson from 'export-from-json'
 import xlsx from 'json-as-xlsx'
 import moment from 'moment'
 
@@ -55,31 +54,6 @@ export default function Career() {
     { dataIndex: "fee", title: "Fee", width: isDesktop ? '10rem' : '160px', filters: feeFilters, onFilter: feeOnFilter },
     { dataIndex: "experience", title: "Pengalaman", width: isDesktop ? '20rem' : '240px', ellipsis: true },
   ]
-
-  const downloadExcel = () => {
-    const data = hirings.data.map((el, i) => ({
-      'No.': i+1,
-      'Nama Lengkap': el.fullname,
-      'Nama Panggilan': el.nickname,
-      'Email': el.email,
-      'No. Whatsapp': el.phone ? `'${el.phone}` : '',
-      'Alamat': el.address,
-      'Waktu Kerja': el.workingHour,
-      'Kamera': el.camera,
-      'Lensa': el.lens,
-      'Aksesoris': el.accessories,
-      'Link CV': el.cv,
-      'Link Portfolio': el.portfolio,
-      'Fee': el.fee,
-      'Pengalaman': el.experience,
-      'Tanggal Submit': moment(el.createdAt).format('YYYY-MM-DD')
-    }))
-    exportFromJson({
-      data,
-      fileName: `${moment().format('YYYYMMDD')}-Candidate`,
-      exportType: 'xls'
-    })
-  }
 
   const downloadXlsx = () => {
     const data = [{
