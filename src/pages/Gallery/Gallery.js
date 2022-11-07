@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import check from '../../assets/check.svg'
 import ButtonFilter from '../../components/ButtonFIlter'
@@ -6,12 +6,16 @@ import { useSearchParams } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { getAllCategories, getPortfolioImages, updateCategory } from '../../store/action'
 import CardGallery from '../../components/CardGallery'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 export default function Gallery() {
   const dispatch = useDispatch()
-  const {portfolioImages, categories} = useSelector(v => v)
+  const {portfolioImages, categories, isLoading} = useSelector(v => v)
   const [searchParams, setSearchParams] = useSearchParams()
+  const [redirect, setRedirect] = useState({})
   const type = searchParams.get('type')
+  const currentCategory = categories.find(e => e.name === type)
 
   useEffect(() => {
     type && dispatch(getPortfolioImages(type))
@@ -32,6 +36,34 @@ export default function Gallery() {
       displayOnGallery: val
     }, () => {}))
   }
+
+  useEffect(() => {
+    if(categories.length > 0) {
+      const _redirect = {}
+      categories.forEach(e => {
+        _redirect[e.name] = e.redirectLink || ''
+      })
+      setRedirect(_redirect)
+    }
+  }, [categories])
+
+  console.log(categories)
+
+  const simpanLink = () => {
+    const {_id, displayOnGallery, displayOnHomepage, image, name} = currentCategory
+    dispatch(updateCategory(
+      _id,
+      {
+        displayOnGallery,
+        displayOnHomepage,
+        images: image,
+        name,
+        redirectLink: redirect[type]
+      },
+      () => {}
+    ))
+  }
+
 
   return (
     <div className={styles.root}>
@@ -57,7 +89,22 @@ export default function Gallery() {
             </ButtonFilter>
           ))}
         </div>
-        <div />
+        <div>
+        </div>
+      </div>
+      <div className={styles.inputLink}>
+        <Input
+          label={`Lihat Selengkapnya untuk Layanan "${type}"`}
+          meta={{}}
+          input={{placeholder: 'Masukkan Link', value: redirect[type], onChange: e => setRedirect(prev => ({...prev, [type]: e.target.value}))}}
+        />
+        <Button 
+          variant={'active-square'} 
+          handleClick={simpanLink} 
+          disabled={redirect[type] === currentCategory?.redirectLink || isLoading[`updateCategory-${currentCategory?._id}`]}
+        >
+          Simpan Link
+        </Button>
       </div>
       <div className={styles.galleries}>
         {portfolioImages.images.length > 0 && portfolioImages.images.map((e, i) => (

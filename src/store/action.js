@@ -396,6 +396,7 @@ export function updateCategory(id, category, cb) {
         form.append('image', category.images)
       }
       form.append('name', category.name)
+      form.append('redirectLink', category.redirectLink)
       form.append('displayOnHomepage', category.displayOnHomepage ? true : false)
       form.append('displayOnGallery', category.displayOnGallery ? true : false)
       const { data } = await axios({

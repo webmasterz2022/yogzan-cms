@@ -57,6 +57,23 @@
   row-gap: 1rem;
 }
 
+.inputLink {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.inputLink > button {
+  padding: 0.625rem 1rem;
+  height: fit-content;
+  align-self: flex-end;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
+  height: 2.875rem;
+}
+
 @media only screen and (max-width: 768px) {
   .root {
     margin-top: 0px;
@@ -154,5 +171,25 @@
     flex-wrap: wrap;
     column-gap: 16px;
     row-gap: 16px;
+  }
+
+  .inputLink {
+    column-gap: 8px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    padding: 0 40px;
+  }
+
+  .inputLink > div {
+    width: fill;
+  }
+  
+  .inputLink > button {
+    padding: 10px 16px;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+    height: 46px;
+    width: fill;
   }
 }

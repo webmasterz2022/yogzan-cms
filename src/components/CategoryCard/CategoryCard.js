@@ -10,7 +10,7 @@ import { addCategory, deleteCategory, updateCategory } from '../../store/action'
 import Switch from '../Switch'
 
 export default function CategoryCard(props) {
-  const { image, title, isNew, id, isLoadingSubmit, isLoadingDelete, toggleValue, displayOnGallery } = props
+  const { image, title, isNew, id, isLoadingSubmit, isLoadingDelete, toggleValue, displayOnGallery, redirectLink } = props
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [imageName, setImageName] = useState('')
@@ -50,7 +50,7 @@ export default function CategoryCard(props) {
     if(isNew) {
       dispatch(addCategory({name, images, imageName, displayOnHomepage: toggle}, cb))
     } else {
-      dispatch(updateCategory(id, {name, images, imageName, displayOnHomepage: toggle, displayOnGallery}, () => {}))
+      dispatch(updateCategory(id, {name, images, imageName, displayOnHomepage: toggle, displayOnGallery, redirectLink}, () => {}))
     }
   }
 
