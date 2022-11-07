@@ -470,11 +470,11 @@ export function addTestimony(testimony, cb) {
           access_token: localStorage.getItem('token')
         }
       })
-      dispatch({type: 'SET_LOADING', key: 'addTEstimony', payload: false})
+      dispatch({type: 'SET_LOADING', key: 'addTestimony', payload: false})
       cb()
       dispatch(getAllTestimonies())
     } catch (error) {
-      dispatch({type: 'SET_LOADING', key: 'addTEstimony', payload: false})
+      dispatch({type: 'SET_LOADING', key: 'addTestimony', payload: false})
       alert(error.message)
     }
   }

@@ -50,7 +50,7 @@ export default function CategoryCard(props) {
     if(isNew) {
       dispatch(addCategory({name, images, imageName, displayOnHomepage: toggle}, cb))
     } else {
-      dispatch(updateCategory(id, {name, images, imageName, displayOnHomepage: toggle, displayOnGallery}, cb))
+      dispatch(updateCategory(id, {name, images, imageName, displayOnHomepage: toggle, displayOnGallery}, () => {}))
     }
   }
 

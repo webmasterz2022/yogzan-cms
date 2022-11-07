@@ -23,7 +23,6 @@ export default function Book() {
   const isEditing = (record) => record._id === editingKey;
   const [form, setForm] = useState();
   const edit = (record) => {
-    console.log(record)
     setForm(record);
     setEditingKey(record._id);
   };
@@ -55,6 +54,7 @@ export default function Book() {
   }, [type])
 
   const renderDate = val => moment(val).isValid() ? moment(val).format('DD MMM YYYY') : <span className={styles.error}>{val}</span>
+  const renderDateTime = val => moment(val).isValid() ? moment(val).format('DD MMM YYYY, HH:mm') : <span className={styles.error}>{val}</span>
   
   const columnsTableBooking = [
     { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
@@ -64,7 +64,7 @@ export default function Book() {
     { dataIndex: "date", title: "Tanggal Pemotretan", width: isDesktop ? '15rem' : '240px', render: renderDate },
     { dataIndex: "phone", title: "No. Whatsapp", width: isDesktop ? '10rem' : '160px' },
     { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: isDesktop ? '15rem' : '240px', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDate },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDateTime },
   ]
 
   const columnsTableFixBooking = [
@@ -83,7 +83,7 @@ export default function Book() {
     { dataIndex: "location", title: "Lokasi Pemotretan", width: isDesktop ? '12.5rem' : '200px', editable: true },
     { dataIndex: "package", title: 'Jenis Paket', width: isDesktop ? '8rem' : '128px', editable: true},
     { dataIndex: "photographer", title: 'Fotografer', width: isDesktop ? '10rem' : '160px', editable: true},
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDate },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDateTime },
     { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
       const editable = isEditing(record);
       return editable ? (
@@ -156,7 +156,7 @@ export default function Book() {
           {label: 'Instagram Attire', value: 'ig-attire'},
           {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
           {label: 'Lokasi Pemotretan', value: 'location'},
-          {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD')},
+          {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD HH:mm')},
         ],
         content: sheets[e]
       }))
@@ -170,7 +170,7 @@ export default function Book() {
           {label: 'Tanggal Pemotretan', value: row => moment(row.date).isValid() ? moment(row.date).format('YYYY-MM-DD') : row.date},
           {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
           {label: 'Mengetahui Yogzan Dari', value: 'knowFrom'},
-          {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD')},
+          {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD HH:mm')},
         ],
         content: sheets[e]
       }))
