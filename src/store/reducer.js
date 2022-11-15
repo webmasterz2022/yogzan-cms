@@ -10,6 +10,7 @@ const initialState = {
   hirings: {},
   bookings: {},
   fixBookings: {},
+  pathChecker: true,
   isLoading: {}
 }
 
@@ -87,6 +88,11 @@ export default function reducer(state = initialState, action) {
           ...state.isLoading,
           fixBooking: false
         }
+      }
+    case 'PATH_CHECKER':
+      return {
+        ...state,
+        pathChecker: action.payload,
       }
     case 'SET_LOADING':
       return {

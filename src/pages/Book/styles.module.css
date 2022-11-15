@@ -67,6 +67,26 @@
   margin-left: 1rem;
 }
 
+.fieldPath {
+  display: flex;
+  align-items: center;
+  column-gap: 0.125rem;
+}
+
+.fieldPath > img {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-top: -0.5rem;
+}
+
+.fieldPath > p {
+  padding-top: 0.2rem;
+}
+
+.patherror {
+  border-color: darkred !important;
+}
+
 @media only screen and (max-width: 768px) {
   .root {
     padding: 72px 16px;

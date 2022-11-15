@@ -34,8 +34,9 @@ export default function Career() {
     {text: 'Weekdays & Weekend', value: 'Weekdays & Weekend'},
   ]
   const workingHourOnFilter = (value, record) => record.workingHour.indexOf(value) === 0
+  const reqLink2 = new RegExp(/^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#-]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/)
   const reqLink = new RegExp(/^(ftp|http|https):\/\/[^ "]+$/);
-  const isLink = value => reqLink.test(value)
+  const isLink = value => reqLink2.test(value)
   const renderLink = val => isLink(val) ? <a href={val} target="_blank" rel="noreferrer">{val}</a> : val
 
   const renderDate = val => val ? moment(val).format('DD MMM YYYY, HH:mm') : val

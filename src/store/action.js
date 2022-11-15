@@ -535,3 +535,24 @@ export function deleteTestimony(id) {
     }
   }
 }
+
+export function pathChecker(path, id) {
+  return async (dispatch) => {
+    try {
+      dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: true})
+      const { data } = await axios({
+        method: 'post',
+        url: `https://yogzan-server-dev.herokuapp.com/fixbook/check-path`,
+        // url: `http://localhost:5000/testimony/${id}`,
+        data: {
+          path
+        }
+      })
+      dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: false})
+      dispatch({payload: {[id]: !data ? 'link sudah terpakai' : ''}, type: 'PATH_CHECKER'})
+    } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: false})
+      alert(error.message)
+    }
+  }
+}
