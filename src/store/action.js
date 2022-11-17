@@ -399,6 +399,7 @@ export function updateCategory(id, category, cb) {
       form.append('redirectLink', category.redirectLink)
       form.append('displayOnHomepage', category.displayOnHomepage ? true : false)
       form.append('displayOnGallery', category.displayOnGallery ? true : false)
+      form.append('cities', JSON.stringify(category.cities || []))
       const { data } = await axios({
         method: 'put',
         url: `https://yogzan-server-dev.herokuapp.com/category/update/${id}`,
