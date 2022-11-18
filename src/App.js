@@ -11,9 +11,10 @@ import Book from './pages/Book';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import PriceList from './pages/PriceList';
-
+import LogRocket from 'logrocket'
 
 function App() {
+  LogRocket.init('dcepbi/yogzan-cms');
   return (
   <BrowserRouter>
     <AppContextProvider>
