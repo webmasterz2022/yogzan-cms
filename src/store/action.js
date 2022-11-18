@@ -543,7 +543,7 @@ export function pathChecker(path, id) {
       dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: true})
       const { data } = await axios({
         method: 'post',
-        url: `https://yogzan-server-dev.herokuapp.com/fixbook/check-path`,
+        url: `https://yogzan-server-stage.herokuapp.com/fixbook/check-path`,
         // url: `http://localhost:5000/testimony/${id}`,
         data: {
           path
