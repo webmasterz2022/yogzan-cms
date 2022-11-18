@@ -50,7 +50,7 @@ export default function Gallery() {
   console.log(categories)
 
   const simpanLink = () => {
-    const {_id, displayOnGallery, displayOnHomepage, image, name} = currentCategory
+    const {_id, displayOnGallery, displayOnHomepage, image, name, cities} = currentCategory
     dispatch(updateCategory(
       _id,
       {
@@ -58,6 +58,7 @@ export default function Gallery() {
         displayOnHomepage,
         images: image,
         name,
+        cities,
         redirectLink: redirect[type]
       },
       () => {}
