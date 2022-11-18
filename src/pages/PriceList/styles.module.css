@@ -1,0 +1,54 @@
+.root {
+  padding: 2.5rem;
+}
+
+.root > div {
+  text-align: left;
+  margin-bottom: 4rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+
+.root .card {
+  width: 15rem;
+  border: 1px solid grey;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.card > .buttonGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+  .root {
+    padding: 40px;
+  }
+  
+  .root > div {
+    text-align: left;
+    margin-bottom: 64px;
+  }
+  
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+  
+  .root .card {
+    width: 240px;
+    border: 1px solid grey;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}

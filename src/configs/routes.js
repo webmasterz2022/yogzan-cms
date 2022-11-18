@@ -5,4 +5,5 @@ export const routes = {
   BOOK: () => `/book`,
   LOGIN: () => `/login`,
   REGISTER: () => `/register`,
+  PRICE_LIST: () => `/price-list`
 };

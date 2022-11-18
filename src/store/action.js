@@ -396,8 +396,10 @@ export function updateCategory(id, category, cb) {
         form.append('image', category.images)
       }
       form.append('name', category.name)
+      form.append('redirectLink', category.redirectLink)
       form.append('displayOnHomepage', category.displayOnHomepage ? true : false)
       form.append('displayOnGallery', category.displayOnGallery ? true : false)
+      form.append('cities', JSON.stringify(category.cities || []))
       const { data } = await axios({
         method: 'put',
         url: `https://yogzan-server-stage.herokuapp.com/category/update/${id}`,
@@ -470,11 +472,11 @@ export function addTestimony(testimony, cb) {
           access_token: localStorage.getItem('token')
         }
       })
-      dispatch({type: 'SET_LOADING', key: 'addTEstimony', payload: false})
+      dispatch({type: 'SET_LOADING', key: 'addTestimony', payload: false})
       cb()
       dispatch(getAllTestimonies())
     } catch (error) {
-      dispatch({type: 'SET_LOADING', key: 'addTEstimony', payload: false})
+      dispatch({type: 'SET_LOADING', key: 'addTestimony', payload: false})
       alert(error.message)
     }
   }
@@ -530,6 +532,27 @@ export function deleteTestimony(id) {
       dispatch(getAllTestimonies())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `deleteTestimony-${id}`, payload: false})
+      alert(error.message)
+    }
+  }
+}
+
+export function pathChecker(path, id) {
+  return async (dispatch) => {
+    try {
+      dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: true})
+      const { data } = await axios({
+        method: 'post',
+        url: `https://yogzan-server-dev.herokuapp.com/fixbook/check-path`,
+        // url: `http://localhost:5000/testimony/${id}`,
+        data: {
+          path
+        }
+      })
+      dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: false})
+      dispatch({payload: {[id]: !data ? 'link sudah terpakai' : ''}, type: 'PATH_CHECKER'})
+    } catch (error) {
+      dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: false})
       alert(error.message)
     }
   }
