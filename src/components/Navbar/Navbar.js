@@ -14,6 +14,9 @@ import Button from '../Button'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { routes } from '../../configs/routes'
 import { getDeviceType } from '../../utils'
+import pricelistPrimary from '../../assets/pricelist-primary.svg'
+import pricelistLight from '../../assets/pricelist-light.svg'
+
 
 export default function Navbar() {
   const device = getDeviceType()
@@ -42,6 +45,11 @@ export default function Navbar() {
       icon: routes.BOOK() === pathname ? bookingLight : bookingPrimary,
       handleClick: () => navigate(routes.BOOK()),
       variant: routes.BOOK() === pathname ? 'active-rounded' : 'negative',
+    },{
+      title: 'Price List',
+      icon: routes.PRICE_LIST() === pathname ? pricelistLight : pricelistPrimary,
+      handleClick: () => navigate(routes.PRICE_LIST()),
+      variant: routes.PRICE_LIST() === pathname ? 'active-rounded' : 'negative',
     }
   ]
 

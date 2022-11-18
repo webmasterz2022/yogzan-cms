@@ -10,6 +10,7 @@ import Career from './pages/Career';
 import Book from './pages/Book';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import PriceList from './pages/PriceList';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path={routes.BOOK()} element={<Book />} />
             <Route path={routes.LOGIN()} element={<Login />} />
             <Route path={routes.REGISTER()} element={<Register />} />
+            <Route path={routes.PRICE_LIST()} element={<PriceList />} />
           </Routes>
       </div>
     </AppContextProvider>
