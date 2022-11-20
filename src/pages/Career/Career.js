@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllHirings } from '../../store/action'
 import { Table } from 'antd'
-import { getDeviceType } from '../../utils'
+import { getDeviceType, sortDate } from '../../utils'
 import Button from '../../components/Button'
 import xlsx from 'json-as-xlsx'
 import moment from 'moment'
@@ -56,7 +56,7 @@ export default function Career() {
     { dataIndex: "portfolio", title: "Link Portfolio", width: isDesktop ? '10rem' : '160px', render: renderLink },
     { dataIndex: "fee", title: "Fee", width: isDesktop ? '10rem' : '160px', filters: feeFilters, onFilter: feeOnFilter },
     { dataIndex: "experience", title: "Pengalaman", width: isDesktop ? '20rem' : '240px', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDate },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDate, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
   ]
 
   const downloadXlsx = () => {
@@ -100,8 +100,8 @@ export default function Career() {
       <Table 
         dataSource={hirings.data ? hirings.data : []}
         columns={columnsTable}
-        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5, showSizeChanger: false}}
-        scroll={{y: 'fit-content'}}
+        pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
+        scroll={{y: '60vh'}}
       />
     </section>
   )
