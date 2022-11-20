@@ -203,7 +203,7 @@ export function getAllHirings() {
       dispatch({type: 'SET_LOADING', key: 'hiring', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/hiring?limit=1000`,
+        url: `https://yogzan-server-stage.herokuapp.com/hiring?limit=10000`,
         // url: `http://localhost:5000/hiring/`,
       })
       dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
@@ -238,7 +238,7 @@ export function getAllBookings() {
       dispatch({type: 'SET_LOADING', key: 'booking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/book?limit=1000`,
+        url: `https://yogzan-server-stage.herokuapp.com/book?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
@@ -254,7 +254,7 @@ export function getAllFixBookings() {
       dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-stage.herokuapp.com/fixbook?limit=1000`,
+        url: `https://yogzan-server-stage.herokuapp.com/fixbook?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })

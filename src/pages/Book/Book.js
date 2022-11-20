@@ -6,7 +6,7 @@ import { Table, Form } from 'antd'
 import moment from 'moment'
 import ButtonFIlter from '../../components/ButtonFIlter'
 import { useSearchParams } from 'react-router-dom'
-import { getDeviceType } from '../../utils'
+import { getDeviceType, sortDate } from '../../utils'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import xlsx from 'json-as-xlsx'
@@ -70,14 +70,14 @@ export default function Book() {
     { dataIndex: "date", title: "Tanggal Pemotretan", width: isDesktop ? '15rem' : '240px', render: renderDate },
     { dataIndex: "phone", title: "No. Whatsapp", width: isDesktop ? '10rem' : '160px' },
     { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: isDesktop ? '15rem' : '240px', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDateTime },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
   ]
 
   const columnsTableFixBooking = [
     { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
     { dataIndex: "fullname", title: "Nama Lengkap", width: isDesktop ? '10rem' : '160px', editable: true },
     { dataIndex: "nickname", title: "Nama Panggilan", width: isDesktop ? '10rem' : '160px', editable: true },
-    { dataIndex: "date", title: "Tanggal", width: isDesktop ? '8rem' : '160px', render: renderDate, editable: true },
+    { dataIndex: "date", title: "Tanggal", width: isDesktop ? '8rem' : '160px', render: renderDate, editable: true, sorter: (a, b, type) => sortDate(a, b, type, 'date') },
     { dataIndex: "time", title: "Waktu", width: isDesktop ? '5rem' : '128px', editable: true },
     { dataIndex: "layanan", title: "Layanan", width: isDesktop ? '8rem' : '128px', editable: true },
     { dataIndex: "campus", title: "Asal Kampus", width: isDesktop ? '8rem' : '128px', editable: true },
@@ -89,7 +89,7 @@ export default function Book() {
     { dataIndex: "location", title: "Lokasi Pemotretan", width: isDesktop ? '12.5rem' : '200px', editable: true },
     { dataIndex: "package", title: 'Jenis Paket', width: isDesktop ? '8rem' : '128px', editable: true},
     { dataIndex: "photographer", title: 'Fotografer', width: isDesktop ? '10rem' : '160px', editable: true},
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDateTime },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
     { dataIndex: "linkphoto", title: 'Link Client', width: isDesktop ? '20rem' : '320px', editable: true},
     { dataIndex: "stored", title: 'Link Drive', width: isDesktop ? '15rem' : '240px', editable: true, render: renderLink},
     { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
@@ -217,8 +217,8 @@ export default function Book() {
         }}
         dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
         columns={mergedColumns}
-        pagination={{position: ['bottomLeft'], pageSize: isDesktop ? 10 : 5, showSizeChanger: false}}
-        scroll={{y: 'fit-content'}}
+        pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
+        scroll={{y: '60vh'}}
       />
     </section>
   )
@@ -294,7 +294,6 @@ const EditableCell = (props) => {
   }
 
   const renderValue = () => {
-    console.log(dataIndex, children)
     if(dataIndex === 'linkphoto' && children[1]){
       const url = `https://yogzan.com/result/${children[1]}`
       return <a href={url} target={'_blank'} rel="noreferrer">{url}</a>
