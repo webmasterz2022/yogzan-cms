@@ -17,7 +17,7 @@ export function login(form) {
       window.location.href = '/'
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: 'login', payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -29,6 +29,7 @@ export function register(form) {
       const { data } = await axios({
         method: 'post',
         url: 'https://yogzan-server.herokuapp.com/users/register',
+        // url: 'http://localhost:5000/users/register',
         data: form
       })
       dispatch({type: 'SET_LOADING', key: 'register', payload: false})
@@ -36,7 +37,7 @@ export function register(form) {
       window.location.href = '/login'
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: 'register', payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -192,7 +193,7 @@ export function submitHiring(dataForm, cb) {
       cb()
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: 'submitHiring', payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -208,7 +209,7 @@ export function getAllHirings() {
       })
       dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
     } catch (error) {
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -227,7 +228,7 @@ export function submitBooking(dataBooking, cb) {
       cb()
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: 'submitBooking', payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -243,7 +244,7 @@ export function getAllBookings() {
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
     } catch (error) {
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -259,7 +260,7 @@ export function getAllFixBookings() {
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
     } catch (error) {
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -305,7 +306,7 @@ export function deleteGallery(id) {
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: false})
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -333,7 +334,7 @@ export function uploadHomepageGallery(file, imageName, index) {
       dispatch(getHomepageImages())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `uploadHomepage-${index}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -349,7 +350,7 @@ export function getAllCategories() {
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_CATEGORY' })
     } catch (error) {
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -378,7 +379,7 @@ export function addCategory(category, cb) {
       dispatch(getAllCategories())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: 'addCategory', payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -414,7 +415,7 @@ export function updateCategory(id, category, cb) {
       dispatch(getAllCategories())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `updateCategory-${id}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -432,7 +433,7 @@ export function deleteCategory(id) {
       dispatch(getAllCategories())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -448,7 +449,7 @@ export function getAllTestimonies() {
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_TESTIMONY' })
     } catch (error) {
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -477,7 +478,7 @@ export function addTestimony(testimony, cb) {
       dispatch(getAllTestimonies())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: 'addTestimony', payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -511,7 +512,7 @@ export function updateTestimony(id, testimony, cb) {
       dispatch(getAllTestimonies())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `updateTestimony-${id}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -532,7 +533,7 @@ export function deleteTestimony(id) {
       dispatch(getAllTestimonies())
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `deleteTestimony-${id}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
@@ -553,7 +554,7 @@ export function pathChecker(path, id) {
       dispatch({payload: {[id]: !data ? 'link sudah terpakai' : ''}, type: 'PATH_CHECKER'})
     } catch (error) {
       dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: false})
-      alert(error.message)
+      alert(error.response.data.err || error.message)
     }
   }
 }
