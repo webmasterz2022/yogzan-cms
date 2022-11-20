@@ -47,3 +47,7 @@ export const removeDot = val => {
   }
   return val.replace(/\./g, '');
 };
+
+export const sortDate = (a, b, type, key) => {
+  return new Date(a[key]) - new Date(b[key])
+}

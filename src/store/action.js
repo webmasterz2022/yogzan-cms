@@ -203,8 +203,8 @@ export function getAllHirings() {
       dispatch({type: 'SET_LOADING', key: 'hiring', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-dev.herokuapp.com/hiring?limit=1000`,
-        // url: `http://localhost:5000/hiring/`,
+        url: `https://yogzan-server-dev.herokuapp.com/hiring?limit=100000`,
+        // url: `http://localhost:5000/hiring?limit=10000`,
       })
       dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
     } catch (error) {
@@ -238,8 +238,8 @@ export function getAllBookings() {
       dispatch({type: 'SET_LOADING', key: 'booking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-dev.herokuapp.com/book?limit=1000`,
-        // url: `http://localhost:5000/book/`,
+        url: `https://yogzan-server-dev.herokuapp.com/book?limit=100000`,
+        // url: `http://localhost:5000/book?limit=10000`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
     } catch (error) {
@@ -254,7 +254,7 @@ export function getAllFixBookings() {
       dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-server-dev.herokuapp.com/fixbook?limit=1000`,
+        url: `https://yogzan-server-dev.herokuapp.com/fixbook?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
