@@ -4,13 +4,14 @@ import fileToBase64 from '../../utils/fileTobase64'
 import Button from '../Button'
 import Input from '../Input'
 import TextArea from '../TextArea'
+import SelectInput from '../SelectInput'
 import Upload from '../Upload'
 import imageCompression from 'browser-image-compression'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPortfolio, deletePortfolio, updatePortfolio } from '../../store/action'
 
 export default function CardGallery(props) {
-  const {image, title, layanan, kota, description, isNew, _id, vertical} = props
+  const {image, title, layanan, kota, description, isNew, _id, vertical, horizontal} = props
   const dispatch = useDispatch()
   const {isLoading} = useSelector(s => s)
   const [images, setImages] = useState('')
@@ -43,13 +44,27 @@ export default function CardGallery(props) {
 
   useEffect(() => {
     if(vertical) {
-      setOrientation('vertical')
+      setOrientation('Vertical')
+    } else if(horizontal) {
+      setOrientation('Horizontal')
     } else {
-      setOrientation('horizontal')
+      setOrientation('')
     }
-  })
+  }, [vertical, horizontal])
 
-  const disabledButton = (image === images && name === title && desc === description && city === kota) || localLoading
+  const isChangeOrientation = () => {
+    if(orientation === 'Vertical' && vertical) {
+      return true
+    } else if(orientation === 'Horizontal' && horizontal) {
+      return true
+    } else if(!orientation) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const disabledButton = (image === images && name === title && desc === description && city === kota && isChangeOrientation()) || localLoading
   
   const handleChangeImage = async e => {
     e.persist()
@@ -57,13 +72,6 @@ export default function CardGallery(props) {
     setName(e.target.files[0].name.split('.')[0])
     const compressed = await imageCompression(e.target.files[0], {maxSizeMB: 0.5})
     const converted = await fileToBase64(compressed)
-    const img = new Image()
-    img.src = converted
-    if(img.width > img.height) {
-      setOrientation('horizontal')
-    } else {
-      setOrientation('vertical')
-    }
     setImages(converted)
     setLocalLoading(false)
   }
@@ -83,8 +91,8 @@ export default function CardGallery(props) {
         image: images,
         category,
         city,
-        horizontal: orientation === 'horizontal',
-        vertical: orientation === 'vertical',
+        horizontal: orientation === 'Horizontal',
+        vertical: orientation === 'Vertical',
         description: desc || ''
       }, _id))
     } else {
@@ -93,8 +101,8 @@ export default function CardGallery(props) {
         image: images,
         category,
         city,
-        horizontal: orientation === 'horizontal',
-        vertical: orientation === 'vertical',
+        horizontal: orientation === 'Horizontal',
+        vertical: orientation === 'Vertical',
         description: desc || ''
       }, reset))
     }
@@ -118,6 +126,14 @@ export default function CardGallery(props) {
         meta={{}}
         label='Nama Photo'
       />
+      <span>Photo Orientation</span>
+      <SelectInput 
+        placeholder="Vertical / Horizontal"
+        options={['Vertical', 'Horizontal']}
+        onChange={setOrientation}
+        value={orientation}
+      />
+      <br/>
       <Input
         input={{value: category, readOnly: true, disabled: true}}
         meta={{}}

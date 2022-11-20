@@ -12,11 +12,12 @@ export default function Register() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [code, setCode] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const submit = () => {
-    dispatch(register({username, email, password}))
+    dispatch(register({username, email, password, credentialCode: code}))
   }
 
   const login = () => {
@@ -45,8 +46,14 @@ export default function Register() {
           input={{onChange: e => setPassword(e.target.value), type: 'password'}}
           inputProps={{placeholder: 'Masukkan Password'}}
         />
+        <Input 
+          label="Credential Code"
+          meta={{}}
+          input={{onChange: e => setCode(e.target.value), type: 'code'}}
+          inputProps={{placeholder: 'Masukkan Code'}}
+        />
         <div>
-          <Button disabled={!email || !password || !username} variant="active-square" handleClick={submit}>
+          <Button disabled={!email || !password || !username || !code} variant="active-square" handleClick={submit}>
             Register
           </Button>
           <Button handleClick={login}>
