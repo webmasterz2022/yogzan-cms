@@ -62,8 +62,8 @@ export function getPortfolioImages(category, city) {
     try {
       dispatch({type: 'SET_LOADING', key: 'portfolio', payload: true})
       const url = (category && category !== 'Semua') ? 
-        `https://yogzan-server-stage.herokuapp.com/gallery/category/${category}${city ? `?city=${city}` : ''}` :
-        `https://yogzan-server-stage.herokuapp.com/gallery/${city ? `?city=${city}` : ''}`
+        `https://yogzan-server-stage.herokuapp.com/gallery/category/${category}?limit=1000${city ? `&city=${city}` : ''}` :
+        `https://yogzan-server-stage.herokuapp.com/gallery/?limit=1000${city ? `&city=${city}` : ''}`
       const { data } = await axios({
         method: 'get',
         url
