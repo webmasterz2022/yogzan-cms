@@ -92,6 +92,7 @@ export default function Book() {
     { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
     { dataIndex: "linkphoto", title: 'Link Client', width: isDesktop ? '20rem' : '320px', editable: true},
     { dataIndex: "stored", title: 'Link Drive', width: isDesktop ? '15rem' : '240px', editable: true, render: renderLink},
+    { dataIndex: "notes", title: 'Keterangan', width: isDesktop ? '15rem' : '240px', editable: true},
     { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
       const editable = isEditing(record);
       return editable ? (
@@ -164,6 +165,7 @@ export default function Book() {
           {label: 'Instagram Attire', value: 'ig-attire'},
           {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
           {label: 'Lokasi Pemotretan', value: 'location'},
+          {label: 'Keterangan', value: 'notes'},
           {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD HH:mm')},
         ],
         content: sheets[e]
