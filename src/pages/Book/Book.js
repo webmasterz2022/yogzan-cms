@@ -11,6 +11,8 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import xlsx from 'json-as-xlsx'
 import spinner from '../../assets/spinner.gif'
+import Column from 'antd/lib/table/Column'
+import ColumnGroup from 'antd/lib/table/ColumnGroup'
 
 export default function Book() {
   moment.locale()
@@ -92,21 +94,21 @@ export default function Book() {
     { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
     { dataIndex: "linkphoto", title: 'Link Client', width: isDesktop ? '20rem' : '320px', editable: true},
     { dataIndex: "stored", title: 'Link Drive', width: isDesktop ? '15rem' : '240px', editable: true, render: renderLink},
-    { dataIndex: "notes", title: 'Keterangan', width: isDesktop ? '15rem' : '240px', editable: true},
-    { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
-      const editable = isEditing(record);
-      return editable ? (
-        <div className={styles.actionButtons}>
-          <Button variant="active-square" handleClick={simpan} disabled={isLoading[`updateFixBooking-${record._id}`]}>Simpan</Button>
-          <Button handleClick={() => cancel()}>Batal</Button>
-        </div>
-      ) : (
-        <Button variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
-          Edit
-        </Button>
-      );
-    } }
   ]
+
+  const actionFixbooking = { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
+    const editable = isEditing(record);
+    return editable ? (
+      <div className={styles.actionButtons}>
+        <Button variant="active-square" handleClick={simpan} disabled={isLoading[`updateFixBooking-${record._id}`]}>Simpan</Button>
+        <Button handleClick={() => cancel()}>Batal</Button>
+      </div>
+    ) : (
+      <Button variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
+        Edit
+      </Button>
+    );
+  } }
 
   const dataBooking = type === 'Booking' ? bookings : fixBookings
   const columnsTable = type === 'Booking' ? columnsTableBooking : columnsTableFixBooking
@@ -123,17 +125,19 @@ export default function Book() {
     }
     return {
       ...col,
-      onCell: (record) => ({
-        record,
-        inputType: type,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-        form,
-        setForm
-      }),
+      onCell: (record) => editableProps(record, type, col),
     };
   });
+
+  const editableProps = (record, type, col) => ({
+    record,
+    inputType: type,
+    dataIndex: col.dataIndex,
+    title: col.title,
+    editing: isEditing(record),
+    form,
+    setForm
+  })
 
   const downloadXlsx = () => {
     let data;
@@ -165,7 +169,26 @@ export default function Book() {
           {label: 'Instagram Attire', value: 'ig-attire'},
           {label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : ''},
           {label: 'Lokasi Pemotretan', value: 'location'},
+          {label: 'Follow', value: (row) => row.follow ? '☑️' : ''},
+          {label: 'dikirim FG', value: 'fg'},
+          {label: 'dipost', value: 'post'},
+          {label: 'Story', value: 'story'},
+          {label: 'Feed', value: 'feed'},
+          {label: 'Reel', value: 'reel'},
+          {label: 'Testimoni', value: 'testimony'},
           {label: 'Keterangan', value: 'notes'},
+          // {label: 'Status', value: [
+          //   {label: 'Follow', value: 'follow'},
+          //   {label: 'BTS', value: [
+          //     {label: 'dikirim FG', value: 'fg'},
+          //     {label: 'dipost', value: 'post'}
+          //   ]},
+          //   {label: 'Story', value: 'story'},
+          //   {label: 'Feed', value: 'feed'},
+          //   {label: 'Reel', value: 'reel'},
+          //   {label: 'Testimoni', value: 'testimony'},
+          //   {label: 'Keterangan', value: 'notes'},
+          // ]},
           {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD HH:mm')},
         ],
         content: sheets[e]
@@ -211,17 +234,50 @@ export default function Book() {
       >
         Download Excel
       </Button>
-      <Table 
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
-        columns={mergedColumns}
-        pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
-        scroll={{y: '60vh'}}
-      />
+      {type === 'Booking' ? (
+        <Table 
+          loading={isLoading.booking}
+          components={{
+            body: {
+              cell: EditableCell,
+            },
+          }}
+          dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
+          columns={mergedColumns}
+          pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
+          scroll={{y: '60vh'}}
+        />
+      ) : (
+        <Table 
+          loading={isLoading.fixBooking}
+          components={{
+            body: {
+              cell: EditableCell,
+            },
+          }}
+          dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
+          pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
+          scroll={{y: '60vh'}}
+          bordered
+        >
+          {mergedColumns.map((e, i) => (
+            <Column key={i} {...e}/>
+          ))}
+          <ColumnGroup title="Status">
+            <Column align='center' onCell={e => editableProps(e, 'checkbox', {title: "Follow", dataIndex: 'follow'})} editable={true} dataIndex='follow' width={isDesktop ? '5rem' : '80px'} title="Follow" render={e => e && '☑️'}/>
+            <ColumnGroup title="BTS">
+              <Column align='center' onCell={e => editableProps(e, 'text', {title: "dikirim FG", dataIndex: 'fg'})} editable={true} dataIndex='fg' width={isDesktop ? '5rem' : '80px'} title="dikirim FG" />
+              <Column align='center' onCell={e => editableProps(e, 'text', {title: "dipost", dataIndex: 'post'})} editable={true} dataIndex='post' width={isDesktop ? '5rem' : '80px'} title="dipost" />
+            </ColumnGroup>
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Story", dataIndex: 'story'})} editable={true} dataIndex='story' width={isDesktop ? '5rem' : '80px'} title="Story" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Feed", dataIndex: 'feed'})} editable={true} dataIndex='feed' width={isDesktop ? '5rem' : '80px'} title="Feed" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Reel", dataIndex: 'reel'})} editable={true} dataIndex='reel' width={isDesktop ? '5rem' : '80px'} title="Reel" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Testimoni", dataIndex: 'testimony'})} editable={true} dataIndex='testimony' width={isDesktop ? '15rem' : '240px'} title="Testimoni" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'notes'})} editable={true} dataIndex="notes" width={isDesktop ? '15rem' : '240px'} title="Keterangan" />
+          </ColumnGroup>
+          <Column {...actionFixbooking}/>
+        </Table>
+      )}
     </section>
   )
 }
@@ -258,6 +314,8 @@ const EditableCell = (props) => {
     if(dataIndex === 'linkphoto') {
       setForm(prev => ({...prev, [dataIndex]: e.target.value}))
       setLink(e.target.value)
+    } else if(dataIndex === 'follow') {
+      setForm(prev => ({...prev, [dataIndex]: e.target.checked}))
     } else {
       setForm(prev => ({...prev, [dataIndex]: e.target.value}))
     }
@@ -266,7 +324,7 @@ const EditableCell = (props) => {
   const inputProps = editing ? {
     value: inputType === 'date' ? moment(form[dataIndex]).format('YYYY-MM-DD') : form[dataIndex] || '',
     onChange: handleChange,
-    type: inputType
+    type: inputType,
   } : {}
 
   const renderField = () => {
@@ -285,6 +343,9 @@ const EditableCell = (props) => {
         </div>
       )
     } else {
+      if(inputType === 'checkbox'){
+        inputProps.checked = form[dataIndex]
+      }
       return (
         <Input 
           className={dataIndex === 'linkphoto' && pathChecker[record._id] ? styles.patherror : ''}
