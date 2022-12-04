@@ -7,6 +7,10 @@
   margin-bottom: 4rem;
 }
 
+.root > div > h2 {
+  font-size: 1rem;
+}
+
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -35,6 +39,10 @@
   .root > div {
     text-align: left;
     margin-bottom: 64px;
+  }
+
+  .root > div > h2 {
+    font-size: 16px;
   }
   
   .cards {
