@@ -20,7 +20,7 @@
 
 .root > div:nth-child(1) table {
   background-color: white;
-  font-size: 0.625rem;
+  font-size: 14px;
 }
 
 .root > div table > thead > tr > th {

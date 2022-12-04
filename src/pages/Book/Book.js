@@ -65,35 +65,35 @@ export default function Book() {
   const renderLink = val => isLink(val) ? <a href={val} target="_blank" rel="noreferrer">{val}</a> : val
   
   const columnsTableBooking = [
-    { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "name", title: "Nama", width: isDesktop ? '10rem' : '160px' },
-    { dataIndex: "layanan", title: "Layanan", width: isDesktop ? '8rem' : '128px' },
-    { dataIndex: "city", title: "Kota", width: isDesktop ? '8rem' : '128px' },
-    { dataIndex: "date", title: "Tanggal Pemotretan", width: isDesktop ? '15rem' : '240px', render: renderDate },
-    { dataIndex: "phone", title: "No. Whatsapp", width: isDesktop ? '10rem' : '160px' },
-    { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: isDesktop ? '15rem' : '240px', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '8rem' : '128px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
+    { dataIndex: "idx", title: "No.", width: '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "name", title: "Nama", width: '160px' },
+    { dataIndex: "layanan", title: "Layanan", width: '128px' },
+    { dataIndex: "city", title: "Kota", width: '128px' },
+    { dataIndex: "date", title: "Tanggal Pemotretan", width: '240px', render: renderDate },
+    { dataIndex: "phone", title: "No. Whatsapp", width: '160px' },
+    { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: '240px', ellipsis: true },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: '128px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
   ]
 
   const columnsTableFixBooking = [
-    { dataIndex: "idx", title: "No.", width: isDesktop ? '4rem' : '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "fullname", title: "Nama Lengkap", width: isDesktop ? '10rem' : '160px', editable: true },
-    { dataIndex: "nickname", title: "Nama Panggilan", width: isDesktop ? '10rem' : '160px', editable: true },
-    { dataIndex: "date", title: "Tanggal", width: isDesktop ? '8rem' : '160px', render: renderDate, editable: true, sorter: (a, b, type) => sortDate(a, b, type, 'date') },
-    { dataIndex: "time", title: "Waktu", width: isDesktop ? '5rem' : '128px', editable: true },
-    { dataIndex: "layanan", title: "Layanan", width: isDesktop ? '8rem' : '128px', editable: true },
-    { dataIndex: "campus", title: "Asal Kampus", width: isDesktop ? '8rem' : '128px', editable: true },
-    { dataIndex: "faculty", title: "Fakultas / Jurusan", width: isDesktop ? '12.5rem' : '200px', editable: true },
-    { dataIndex: "ig", title: "Akun Instagram", width: isDesktop ? '12.5rem' : '200px', editable: true },
-    { dataIndex: "ig-mua", title: "Instagram MUA", width: isDesktop ? '12.5rem' : '200px', editable: true },
-    { dataIndex: "ig-attire", title: "Instagram Attire", width: isDesktop ? '12.5rem' : '200px', editable: true },
-    { dataIndex: "phone", title: "No. Whatsapp", width: isDesktop ? '10rem' : '160px', editable: true },
-    { dataIndex: "location", title: "Lokasi Pemotretan", width: isDesktop ? '12.5rem' : '200px', editable: true },
-    { dataIndex: "package", title: 'Jenis Paket', width: isDesktop ? '8rem' : '128px', editable: true},
-    { dataIndex: "photographer", title: 'Fotografer', width: isDesktop ? '10rem' : '160px', editable: true},
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
-    { dataIndex: "linkphoto", title: 'Link Client', width: isDesktop ? '20rem' : '320px', editable: true},
-    { dataIndex: "stored", title: 'Link Drive', width: isDesktop ? '15rem' : '240px', editable: true, render: renderLink},
+    { dataIndex: "idx", title: "No.", width: '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "fullname", title: "Nama Lengkap", width: '160px', editable: true },
+    { dataIndex: "nickname", title: "Nama Panggilan", width: '160px', editable: true },
+    { dataIndex: "date", title: "Tanggal", width: '160px', render: renderDate, editable: true, sorter: (a, b, type) => sortDate(a, b, type, 'date') },
+    { dataIndex: "time", title: "Waktu", width: '128px', editable: true },
+    { dataIndex: "layanan", title: "Layanan", width: '128px', editable: true },
+    { dataIndex: "campus", title: "Asal Kampus", width: '128px', editable: true },
+    { dataIndex: "faculty", title: "Fakultas / Jurusan", width: '200px', editable: true },
+    { dataIndex: "ig", title: "Akun Instagram", width: '200px', editable: true },
+    { dataIndex: "ig-mua", title: "Instagram MUA", width: '200px', editable: true },
+    { dataIndex: "ig-attire", title: "Instagram Attire", width: '200px', editable: true },
+    { dataIndex: "phone", title: "No. Whatsapp", width: '160px', editable: true },
+    { dataIndex: "location", title: "Lokasi Pemotretan", width: '200px', editable: true },
+    { dataIndex: "package", title: 'Jenis Paket', width: '128px', editable: true},
+    { dataIndex: "photographer", title: 'Fotografer', width: '160px', editable: true},
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: '160px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
+    { dataIndex: "linkphoto", title: 'Link Client', width: '320px', editable: true},
+    { dataIndex: "stored", title: 'Link Drive', width: '240px', editable: true, render: renderLink},
   ]
 
   const actionFixbooking = { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
@@ -104,7 +104,7 @@ export default function Book() {
         <Button handleClick={() => cancel()}>Batal</Button>
       </div>
     ) : (
-      <Button variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
+      <Button className={styles.editAction} variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
         Edit
       </Button>
     );
@@ -264,16 +264,16 @@ export default function Book() {
             <Column key={i} {...e}/>
           ))}
           <ColumnGroup title="Status">
-            <Column align='center' onCell={e => editableProps(e, 'checkbox', {title: "Follow", dataIndex: 'follow'})} editable={true} dataIndex='follow' width={isDesktop ? '5rem' : '80px'} title="Follow" render={e => e && '☑️'}/>
+            <Column align='center' onCell={e => editableProps(e, 'checkbox', {title: "Follow", dataIndex: 'follow'})} editable={true} dataIndex='follow' width={'80px'} title="Follow" render={e => e && '☑️'}/>
             <ColumnGroup title="BTS">
-              <Column align='center' onCell={e => editableProps(e, 'text', {title: "dikirim FG", dataIndex: 'fg'})} editable={true} dataIndex='fg' width={isDesktop ? '5rem' : '80px'} title="dikirim FG" />
-              <Column align='center' onCell={e => editableProps(e, 'text', {title: "dipost", dataIndex: 'post'})} editable={true} dataIndex='post' width={isDesktop ? '5rem' : '80px'} title="dipost" />
+              <Column align='center' onCell={e => editableProps(e, 'text', {title: "dikirim FG", dataIndex: 'fg'})} editable={true} dataIndex='fg' width={'100px'} title="dikirim FG" />
+              <Column align='center' onCell={e => editableProps(e, 'text', {title: "dipost", dataIndex: 'post'})} editable={true} dataIndex='post' width={'100px'} title="dipost" />
             </ColumnGroup>
-            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Story", dataIndex: 'story'})} editable={true} dataIndex='story' width={isDesktop ? '5rem' : '80px'} title="Story" />
-            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Feed", dataIndex: 'feed'})} editable={true} dataIndex='feed' width={isDesktop ? '5rem' : '80px'} title="Feed" />
-            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Reel", dataIndex: 'reel'})} editable={true} dataIndex='reel' width={isDesktop ? '5rem' : '80px'} title="Reel" />
-            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Testimoni", dataIndex: 'testimony'})} editable={true} dataIndex='testimony' width={isDesktop ? '15rem' : '240px'} title="Testimoni" />
-            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'notes'})} editable={true} dataIndex="notes" width={isDesktop ? '15rem' : '240px'} title="Keterangan" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Story", dataIndex: 'story'})} editable={true} dataIndex='story' width={'100px'} title="Story" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Feed", dataIndex: 'feed'})} editable={true} dataIndex='feed' width={'100px'} title="Feed" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Reel", dataIndex: 'reel'})} editable={true} dataIndex='reel' width={'100px'} title="Reel" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Testimoni", dataIndex: 'testimony'})} editable={true} dataIndex='testimony' width={'240px'} title="Testimoni" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'notes'})} editable={true} dataIndex="notes" width={'240px'} title="Keterangan" />
           </ColumnGroup>
           <Column {...actionFixbooking}/>
         </Table>

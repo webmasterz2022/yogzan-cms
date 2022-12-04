@@ -11,6 +11,12 @@
   justify-content: space-between;
 }
 
+.root > span {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Avenir', sans-serif;
+}
+
 .new {
   background-color: rgba(255, 255, 255, 1);
 }
@@ -61,6 +67,10 @@
     width: 272px;
     box-shadow: 0px 11px 12px -4px rgba(138, 132, 130, 0.8);
     text-align: left;
+  }
+
+  .root > span {
+    font-size: 16px;
   }
   
   .root > div:nth-child(1) {

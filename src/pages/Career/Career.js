@@ -42,21 +42,21 @@ export default function Career() {
   const renderDate = val => val ? moment(val).format('DD MMM YYYY, HH:mm') : val
 
   const columnsTable = [
-    { dataIndex: "idx", title: "No.", width: isDesktop ? '5rem' : '72px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
-    { dataIndex: "fullname", title: "Nama", width: isDesktop ? '10rem' : '160px' },
-    { dataIndex: "nickname", title: "Panggilan", width: isDesktop ? '8rem' : '128px' },
-    { dataIndex: "email", title: "Email", width: isDesktop ? '15rem' : '240px' },
-    { dataIndex: "phone", title: "Nomor HP", width: isDesktop ? '10rem' : '160px' },
-    { dataIndex: "address", title: "Alamat", width: isDesktop ? '15rem' : '240px', ellipsis: true },
-    { dataIndex: "workingHour", title: "Waktu Kerja", width: isDesktop ? '10rem' : '160px', filters: workingHourFilter, onFilter: workingHourOnFilter },
-    { dataIndex: "camera", title: "Kamera", width: isDesktop ? '8rem' : '128px', ellipsis: true },
-    { dataIndex: "lens", title: "Lensa", width: isDesktop ? '8rem' : '128px', ellipsis: true },
-    { dataIndex: "accessories", title: "Aksesoris", width: isDesktop ? '8rem' : '128px', ellipsis: true },
-    { dataIndex: "cv", title: "Link CV", width: isDesktop ? '10rem' : '160px', render: renderLink },
-    { dataIndex: "portfolio", title: "Link Portfolio", width: isDesktop ? '10rem' : '160px', render: renderLink },
-    { dataIndex: "fee", title: "Fee", width: isDesktop ? '10rem' : '160px', filters: feeFilters, onFilter: feeOnFilter },
-    { dataIndex: "experience", title: "Pengalaman", width: isDesktop ? '20rem' : '240px', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: isDesktop ? '10rem' : '160px', render: renderDate, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
+    { dataIndex: "idx", title: "No.", width: '72px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
+    { dataIndex: "fullname", title: "Nama", width: '160px' },
+    { dataIndex: "nickname", title: "Panggilan", width: '128px' },
+    { dataIndex: "email", title: "Email", width: '240px' },
+    { dataIndex: "phone", title: "Nomor HP", width: '160px' },
+    { dataIndex: "address", title: "Alamat", width: '240px', ellipsis: true },
+    { dataIndex: "workingHour", title: "Waktu Kerja", width: '160px', filters: workingHourFilter, onFilter: workingHourOnFilter },
+    { dataIndex: "camera", title: "Kamera", width: '128px', ellipsis: true },
+    { dataIndex: "lens", title: "Lensa", width: '128px', ellipsis: true },
+    { dataIndex: "accessories", title: "Aksesoris", width: '128px', ellipsis: true },
+    { dataIndex: "cv", title: "Link CV", width: '160px', render: renderLink },
+    { dataIndex: "portfolio", title: "Link Portfolio", width: '160px', render: renderLink },
+    { dataIndex: "fee", title: "Fee", width: '160px', filters: feeFilters, onFilter: feeOnFilter },
+    { dataIndex: "experience", title: "Pengalaman", width: '240px', ellipsis: true },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: '160px', render: renderDate, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
   ]
 
   const downloadXlsx = () => {

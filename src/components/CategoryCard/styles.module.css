@@ -34,6 +34,11 @@
   width: 50%;
 }
 
+.root > div:last-child > small {
+  font-size: 0.625rem;
+  margin-bottom: 0.25rem;
+}
+
 .root > div:last-child > div {
   width: 100%;
 }
@@ -76,6 +81,11 @@
   
   .root > div:last-child {
     padding: 16px;
+  }
+
+  .root > div:last-child > small {
+    font-size: 14px;
+    margin-bottom: 4px;
   }
   
   .root > div:last-child > .groupButton > button {

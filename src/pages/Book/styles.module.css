@@ -31,7 +31,7 @@
 
 .root > div:nth-of-type(2) table {
   background-color: white;
-  font-size: 0.625rem;
+  font-size: 14px;
 }
 
 .root .error {
@@ -56,9 +56,9 @@
 
 
 .root > div table input {
-  font-size: 0.625rem;
-  line-height: 0.65rem;
-  padding: 0.25rem 0.5rem;
+  font-size: 14px;
+  line-height: 14px;
+  padding: 4px 8px;
   vertical-align: middle;
 }
 
@@ -85,6 +85,12 @@
 
 .patherror {
   border-color: darkred !important;
+}
+
+.actionButtons > button,
+.editAction {
+  font-size: 14px !important;
+  padding: 8px 16px !important;
 }
 
 @media only screen and (max-width: 768px) {
