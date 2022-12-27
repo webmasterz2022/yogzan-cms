@@ -294,6 +294,27 @@ export function updateFixBooking(dataForm, cb) {
   }
 }
 
+export function deleteFixBooking(dataForm) {
+  return async dispatch => {
+    const _id = {...dataForm}._id
+    try {
+      dispatch({type: 'SET_LOADING', key: `deleteFixBooking-${_id}`, payload: true})
+      const { data } = await axios({
+        method: 'delete',
+        url: `https://yogzan-api-dev.cyclic.app/fixbook/${_id}`,
+        // url: `http://localhost:5000/fixbook/${_id}`,
+        headers: {
+          access_token: localStorage.getItem('token')
+        }
+      })
+      dispatch({type: 'SET_LOADING', key: `deleteFixBooking-${_id}`, payload: false})
+      dispatch(getAllFixBookings())
+    } catch(error) {
+      dispatch({type: 'SET_LOADING', key: `deleteFixBooking-${_id}`, payload: false})
+    }
+  }
+}
+
 export function deleteGallery(id) {
   return async (dispatch) => {
     try {
