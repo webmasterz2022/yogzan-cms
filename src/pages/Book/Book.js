@@ -169,6 +169,7 @@ export default function Book() {
           {label: 'Nama Panggilan', value: 'nickname'},
           {label: 'Layanan Dipilih', value: 'layanan'},
           {label: 'Paket Dipilih', value: 'package'},
+          {label: 'Durasi', value: 'duration'},
           {label: 'Fotografer', value: 'photographer'},
           {label: 'Tanggal Pemotretan', value: row => moment(row.date).isValid() ? moment(row.date).format('YYYY-MM-DD') : row.date},
           {label: 'Waktu Pemotretan', value: 'time'},
@@ -187,6 +188,9 @@ export default function Book() {
           {label: 'Reel', value: 'reel'},
           {label: 'Testimoni', value: 'testimony'},
           {label: 'Keterangan', value: 'notes'},
+          {label: 'Link Raw Photo', value: 'rawphoto'},
+          {label: 'Link Client', value: row => row.linkphoto ? `https://yogzan.com/result/${row.linkphoto}` : ''},
+          {label: 'Link Drive', value: 'stored'},
           // {label: 'Status', value: [
           //   {label: 'Follow', value: 'follow'},
           //   {label: 'BTS', value: [
