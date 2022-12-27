@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import { getAllBookings, getAllCategories, getAllFixBookings, updateFixBooking, pathChecker as checkPath } from '../../store/action'
+import { getAllBookings, getAllCategories, getAllFixBookings, updateFixBooking, pathChecker as checkPath, deleteFixBooking } from '../../store/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table, Form } from 'antd'
 import moment from 'moment'
@@ -35,6 +35,9 @@ export default function Book() {
   };
   const simpan = () => {
     dispatch(updateFixBooking(form, cancel))
+  }
+  const deleteFixbook = (record) => {
+    dispatch(deleteFixBooking(record))
   }
 
   const bookingTypes = [{name: 'Booking'}, {name: 'Fix Booking'}]
@@ -90,9 +93,11 @@ export default function Book() {
     { dataIndex: "phone", title: "No. Whatsapp", width: '160px', editable: true },
     { dataIndex: "location", title: "Lokasi Pemotretan", width: '200px', editable: true },
     { dataIndex: "package", title: 'Jenis Paket', width: '128px', editable: true},
+    { dataIndex: "duration", title: 'Durasi', width: '128px', editable: true},
     { dataIndex: "photographer", title: 'Fotografer', width: '160px', editable: true},
     { dataIndex: "createdAt", title: "Tanggal Submit", width: '160px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
-    { dataIndex: "linkphoto", title: 'Link Client', width: '320px', editable: true},
+    { dataIndex: "rawphoto", title: 'Link Raw Photo', width: '320px', editable: true},
+    { dataIndex: "linkphoto", title: 'Link Client', width: '420px', editable: true},
     { dataIndex: "stored", title: 'Link Drive', width: '240px', editable: true, render: renderLink},
   ]
 
@@ -104,9 +109,14 @@ export default function Book() {
         <Button handleClick={() => cancel()}>Batal</Button>
       </div>
     ) : (
-      <Button className={styles.editAction} variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
-        Edit
-      </Button>
+      <div className={styles.actionButtons}>
+        <Button className={styles.editAction} variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
+          Edit
+        </Button>
+        <Button className={styles.editAction} variant="danger-square" disabled={editingKey !== ''} handleClick={() => deleteFixbook(record)}>
+          Hapus
+        </Button>
+      </div>
     );
   } }
 

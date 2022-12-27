@@ -34,6 +34,12 @@
   background-color: var(--primary);
 }
 
+.danger-square {
+  border-radius: 0.25rem;
+  color: var(--gray-25);
+  background-color: darkred;
+}
+
 .negative {
   color: var(--primary);
   background-color: transparent; 
