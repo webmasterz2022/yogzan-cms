@@ -301,7 +301,7 @@ export function deleteFixBooking(dataForm) {
       dispatch({type: 'SET_LOADING', key: `deleteFixBooking-${_id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://yogzan-api-dev.cyclic.app/fixbook/${_id}`,
+        url: `https://yogzan-api.cyclic.app/fixbook/${_id}`,
         // url: `http://localhost:5000/fixbook/${_id}`,
         headers: {
           access_token: localStorage.getItem('token')
