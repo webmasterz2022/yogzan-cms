@@ -155,6 +155,7 @@ export default function Book() {
     dataBooking.data?.forEach(e => {
       if(e.date) {
         const currentSheet = moment(e.date).isValid() ? moment(e.date).format('YYYY MMMM') : e.date
+        console.log(currentSheet, moment(e.date).isValid(), e.date, '--------')
         if(!sheets[currentSheet]){
           sheets[currentSheet] = []
         }
@@ -191,6 +192,10 @@ export default function Book() {
           {label: 'Link Raw Photo', value: 'rawphoto'},
           {label: 'Link Client', value: row => row.linkphoto ? `https://yogzan.com/result/${row.linkphoto}` : ''},
           {label: 'Link Drive', value: 'stored'},
+          {label: 'Cash In', value: 'cashin'},
+          {label: 'Keterangan (In)', value: 'cashinNote'},
+          {label: 'Cash Out', value: 'cashout'},
+          {label: 'Keterangan (Out)', value: 'cashoutNote'},
           // {label: 'Status', value: [
           //   {label: 'Follow', value: 'follow'},
           //   {label: 'BTS', value: [
@@ -222,6 +227,8 @@ export default function Book() {
         content: sheets[e]
       }))
     }
+    console.log(moment('2013-03-13').isValid(), '=== sheets')
+    console.log(`${moment().format('YYYYMMDD')}-${type}`)
     xlsx(data, {
       fileName: `${moment().format('YYYYMMDD')}-${type}`,
     })
@@ -277,6 +284,12 @@ export default function Book() {
           {mergedColumns.map((e, i) => (
             <Column key={i} {...e}/>
           ))}
+          <ColumnGroup title="Cashflow">
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Cash In", dataIndex: 'cashin'})} editable={true} dataIndex='cashin' width={'120px'} title="Cash In" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'cashinNote'})} editable={true} dataIndex='cashinNote' width={'120px'} title="Keterangan" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Cash Out", dataIndex: 'cashout'})} editable={true} dataIndex='cashout' width={'120px'} title="Cash Out" />
+            <Column align='center' onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'cashoutNote'})} editable={true} dataIndex='cashoutNote' width={'120px'} title="Keterangan" />
+          </ColumnGroup>
           <ColumnGroup title="Status">
             <Column align='center' onCell={e => editableProps(e, 'checkbox', {title: "Follow", dataIndex: 'follow'})} editable={true} dataIndex='follow' width={'80px'} title="Follow" render={e => e && '☑️'}/>
             <ColumnGroup title="BTS">
