@@ -208,8 +208,38 @@ export function getAllHirings() {
         // url: `http://localhost:5000/hiring?limit=10000`,
       })
       dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
+      dispatch({type: 'SET_LOADING', key: 'hiring', payload: false})
     } catch (error) {
       alert(error.response.data.err || error.message)
+    }
+  }
+}
+
+export function updateHiring(dataForm, cb) {
+  return async dispatch => {
+    const _id = {...dataForm}._id
+    try {
+      dispatch({type: 'SET_LOADING', key: `updateHiring-${_id}`, payload: true})
+      const payload = {...dataForm}
+      delete payload._id
+      delete payload.__v
+      delete payload.createdAt
+      delete payload.updatedAt
+      delete payload.idx
+      const { data } = await axios({
+        method: 'put',
+        url: `https://yogzan-api-dev.cyclic.app/hiring/${_id}`,
+        // url: `http://localhost:5000/hiring/${_id}`,
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('token')
+        }
+      })
+      dispatch({type: 'SET_LOADING', key: `updateHiring-${_id}`, payload: false})
+      cb()
+      dispatch(getAllHirings())
+    } catch(error) {
+      dispatch({type: 'SET_LOADING', key: `updateHiring-${_id}`, payload: false})
     }
   }
 }
@@ -290,6 +320,35 @@ export function updateFixBooking(dataForm, cb) {
       dispatch(getAllFixBookings())
     } catch(error) {
       dispatch({type: 'SET_LOADING', key: `updateFixBooking-${_id}`, payload: false})
+    }
+  }
+}
+
+export function updateBooking(dataForm, cb) {
+  return async dispatch => {
+    const _id = {...dataForm}._id
+    try {
+      dispatch({type: 'SET_LOADING', key: `updateBooking-${_id}`, payload: true})
+      const payload = {...dataForm}
+      delete payload._id
+      delete payload.__v
+      delete payload.createdAt
+      delete payload.updatedAt
+      delete payload.idx
+      const { data } = await axios({
+        method: 'put',
+        url: `https://yogzan-api-dev.cyclic.app/book/${_id}`,
+        // url: `http://localhost:5000/book/${_id}`,
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('token')
+        }
+      })
+      dispatch({type: 'SET_LOADING', key: `updateBooking-${_id}`, payload: false})
+      cb()
+      dispatch(getAllBookings())
+    } catch(error) {
+      dispatch({type: 'SET_LOADING', key: `updateBooking-${_id}`, payload: false})
     }
   }
 }
