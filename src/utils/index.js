@@ -51,3 +51,13 @@ export const removeDot = val => {
 export const sortDate = (a, b, type, key) => {
   return new Date(a[key]) - new Date(b[key])
 }
+
+export const sortAlphabetically = (a, b, key) => {
+  if (a[key] < b[key]) {
+    return -1;
+  }
+  if (a[key] > b[key]) {
+    return 1;
+  }
+  return 0;
+}

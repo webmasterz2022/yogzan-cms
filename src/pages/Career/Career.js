@@ -1,18 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllHirings } from '../../store/action'
+import { getAllHirings, updateHiring } from '../../store/action'
 import { Table } from 'antd'
-import { getDeviceType, sortDate } from '../../utils'
+import { getDeviceType, sortAlphabetically, sortDate } from '../../utils'
 import Button from '../../components/Button'
 import xlsx from 'json-as-xlsx'
 import moment from 'moment'
+import Column from 'antd/lib/table/Column'
+import Input from '../../components/Input'
 
 export default function Career() {
   const device = getDeviceType()
   const dispatch = useDispatch()
-  const {hirings} = useSelector(s => s)
+  const {hirings, isLoading} = useSelector(s => s)
   const isDesktop = device === 'desktop'
+  const [editingKey, setEditingKey] = useState('');
+  const isEditing = (record) => record._id === editingKey;
+  const [form, setForm] = useState();
+  const edit = (record) => {
+    setForm(record);
+    setEditingKey(record._id);
+  };
+  const cancel = () => {
+    setEditingKey('');
+    setForm({})
+  };
+  const simpan = () => {
+    dispatch(updateHiring(form, cancel))
+  }
+
   useEffect(() => {
     dispatch(getAllHirings())
     window.scrollTo(0,0)
@@ -59,6 +76,48 @@ export default function Career() {
     { dataIndex: "createdAt", title: "Tanggal Submit", width: '160px', render: renderDate, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
   ]
 
+  const mergedColumns = columnsTable.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    let type
+    if(col.dataIndex === "date" || col.dataIndex === 'time'){
+      type = col.dataIndex
+    } else {
+      type = 'text'
+    }
+    return {
+      ...col,
+      onCell: (record) => editableProps(record, type, col),
+    };
+  });
+
+  const actionCareer = { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
+    const editable = isEditing(record);
+    return editable ? (
+      <div className={styles.actionButtons}>
+        <Button variant="active-square" handleClick={simpan} disabled={isLoading[`updateHiring-${record._id}`]}>Simpan</Button>
+        <Button handleClick={() => cancel()}>Batal</Button>
+      </div>
+    ) : (
+      <div className={styles.actionButtons}>
+        <Button className={styles.editAction} variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
+          Edit
+        </Button>
+      </div>
+    );
+  } }
+
+  const editableProps = (record, type, col) => ({
+    record,
+    inputType: type,
+    dataIndex: col.dataIndex,
+    title: col.title,
+    editing: isEditing(record),
+    form,
+    setForm
+  })
+
   const downloadXlsx = () => {
     const data = [{
       sheet: 'Candidate',
@@ -77,7 +136,7 @@ export default function Career() {
         {label: 'Link Portfolio', value: 'portfolio'},
         {label: 'Fee', value: 'fee'},
         {label: 'Pengalaman', value: 'experience'},
-        {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD HH:mm')}
+        {label: 'Tanggal Submit', value: row => moment(row.createdAt).format('YYYY-MM-DD HH:mm')},
       ],
       content: hirings.data
     }]
@@ -98,11 +157,67 @@ export default function Career() {
         Download Excel
       </Button>
       <Table 
+        loading={isLoading.hiring}
+        components={{
+          body: {
+            cell: EditableCell,
+          },
+        }}
         dataSource={hirings.data ? hirings.data : []}
-        columns={columnsTable}
         pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
         scroll={{y: '60vh'}}
-      />
+      >
+        {mergedColumns.map((e, i) => (
+          <Column key={i} {...e} />
+        ))}
+        <Column onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'note'})} dataIndex='note' width={'240px'} title="Keterangan" />
+        <Column onCell={e => editableProps(e, 'text', {title: "Status", dataIndex: 'status'})} dataIndex='status' width={'240px'} title="Status" sorter={(a,b) => sortAlphabetically(a, b, 'status')} />
+        <Column {...actionCareer}/>
+      </Table>
     </section>
   )
+}
+
+const EditableCell = (props) => {
+  const {
+    editing,
+    dataIndex,
+    title,
+    inputType,
+    record,
+    index,
+    children,
+    form,
+    setForm,
+    ...restProps
+  } = props
+
+  const handleChange = e => {
+    setForm(prev => ({...prev, [dataIndex]: e.target.value}))
+  }
+
+  const inputProps = editing ? {
+    value: form[dataIndex] || '',
+    onChange: handleChange,
+    type: inputType,
+  } : {}
+
+  const renderField = () => {
+    return (
+      <Input 
+        meta={{}}
+        input={{...inputProps}}
+      />
+    )
+  }
+
+  const renderValue = () => {
+    return children
+  }
+  
+  return (
+    <td {...restProps}>
+      {editing ? renderField() : renderValue()}
+    </td>
+  );
 }
