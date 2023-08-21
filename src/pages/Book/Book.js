@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import { getAllBookings, getAllCategories, getAllFixBookings, updateFixBooking, pathChecker as checkPath, deleteFixBooking } from '../../store/action'
+import { getAllBookings, getAllCategories, getAllFixBookings, updateFixBooking, pathChecker as checkPath, deleteFixBooking, updateBooking } from '../../store/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table, Form } from 'antd'
 import moment from 'moment'
@@ -33,8 +33,12 @@ export default function Book() {
     setEditingKey('');
     setForm({})
   };
-  const simpan = () => {
-    dispatch(updateFixBooking(form, cancel))
+  const simpan = (type) => {
+    if(type === 'Booking') {
+      dispatch(updateBooking(form, cancel))
+    } else {
+      dispatch(updateFixBooking(form, cancel))
+    }
   }
   const deleteFixbook = (record) => {
     dispatch(deleteFixBooking(record))
@@ -53,9 +57,11 @@ export default function Book() {
   useEffect(() => {
     if(type === 'Booking'){
       dispatch(getAllBookings())
+      cancel()
     }
     if(type === 'Fix Booking'){
       dispatch(getAllFixBookings())
+      cancel()
     }
   }, [type])
 
@@ -75,7 +81,7 @@ export default function Book() {
     { dataIndex: "date", title: "Tanggal Pemotretan", width: '240px', render: renderDate },
     { dataIndex: "phone", title: "No. Whatsapp", width: '160px' },
     { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: '240px', ellipsis: true },
-    { dataIndex: "createdAt", title: "Tanggal Submit", width: '128px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
+    { dataIndex: "createdAt", title: "Tanggal Submit", width: '240px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') }
   ]
 
   const columnsTableFixBooking = [
@@ -105,7 +111,7 @@ export default function Book() {
     const editable = isEditing(record);
     return editable ? (
       <div className={styles.actionButtons}>
-        <Button variant="active-square" handleClick={simpan} disabled={isLoading[`updateFixBooking-${record._id}`]}>Simpan</Button>
+        <Button variant="active-square" handleClick={() => simpan('Fix Booking')} disabled={isLoading[`updateFixBooking-${record._id}`]}>Simpan</Button>
         <Button handleClick={() => cancel()}>Batal</Button>
       </div>
     ) : (
@@ -115,6 +121,22 @@ export default function Book() {
         </Button>
         <Button className={styles.editAction} variant="danger-square" disabled={editingKey !== ''} handleClick={() => deleteFixbook(record)}>
           Hapus
+        </Button>
+      </div>
+    );
+  } }
+
+  const actionBooking = { title: 'Action', width: isDesktop ? '15rem' : '240px',render: (_, record) => {
+    const editable = isEditing(record);
+    return editable ? (
+      <div className={styles.actionButtons}>
+        <Button variant="active-square" handleClick={() => simpan('Booking')} disabled={isLoading[`updateBooking-${record._id}`]}>Simpan</Button>
+        <Button handleClick={() => cancel()}>Batal</Button>
+      </div>
+    ) : (
+      <div className={styles.actionButtons}>
+        <Button className={styles.editAction} variant="active-square" disabled={editingKey !== ''} handleClick={() => edit(record)}>
+          Edit
         </Button>
       </div>
     );
@@ -263,11 +285,18 @@ export default function Book() {
               cell: EditableCell,
             },
           }}
-          dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1})) : []}
-          columns={mergedColumns}
+          dataSource={dataBooking.data ? dataBooking.data.map((e, i) => ({...e, idx: i+1,})) : []}
           pagination={{position: ['bottomLeft'], pageSize: 100, showSizeChanger: false}}
           scroll={{y: '60vh'}}
-        />
+        >
+          {mergedColumns.map((e, i) => (
+            <Column key={i} {...e}/>
+          ))}
+          <Column align='center' onCell={e => editableProps(e, 'checkbox', {title: "Follow Up 1", dataIndex: 'followUp1'})} dataIndex='followUp1' width={'128px'} title="Follow Up 1" render={e => e && '☑️'}/>
+          <Column align='center' onCell={e => editableProps(e, 'checkbox', {title: "Follow Up 2", dataIndex: 'followUp2'})} dataIndex='followUp2' width={'128px'} title="Follow Up 2" render={e => e && '☑️'}/>
+          <Column onCell={e => editableProps(e, 'text', {title: "Keterangan", dataIndex: 'note'})} dataIndex='note' width={'240px'} title="Keterangan" />
+          <Column {...actionBooking}/>
+        </Table>
       ) : (
         <Table 
           loading={isLoading.fixBooking}
@@ -338,10 +367,11 @@ const EditableCell = (props) => {
   }, [link])
 
   const handleChange = e => {
+
     if(dataIndex === 'linkphoto') {
       setForm(prev => ({...prev, [dataIndex]: e.target.value}))
       setLink(e.target.value)
-    } else if(dataIndex === 'follow') {
+    } else if(dataIndex === 'follow' || dataIndex === 'followUp1' || dataIndex === 'followUp2') {
       setForm(prev => ({...prev, [dataIndex]: e.target.checked}))
     } else {
       setForm(prev => ({...prev, [dataIndex]: e.target.value}))
