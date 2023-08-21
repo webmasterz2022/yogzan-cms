@@ -204,7 +204,7 @@ export function getAllHirings() {
       dispatch({type: 'SET_LOADING', key: 'hiring', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-api.cyclic.app/hiring?limit=10000`,
+        url: `https://yogzan-api.cyclic.app/hiring?limit=100000`,
         // url: `http://localhost:5000/hiring/`,
       })
       dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
@@ -228,7 +228,7 @@ export function updateHiring(dataForm, cb) {
       delete payload.idx
       const { data } = await axios({
         method: 'put',
-        url: `https://yogzan-api-dev.cyclic.app/hiring/${_id}`,
+        url: `https://yogzan-api.cyclic.app/hiring/${_id}`,
         // url: `http://localhost:5000/hiring/${_id}`,
         data: payload,
         headers: {
@@ -269,7 +269,7 @@ export function getAllBookings() {
       dispatch({type: 'SET_LOADING', key: 'booking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-api.cyclic.app/book?limit=10000`,
+        url: `https://yogzan-api.cyclic.app/book?limit=100000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
@@ -285,7 +285,7 @@ export function getAllFixBookings() {
       dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-api.cyclic.app/fixbook?limit=10000`,
+        url: `https://yogzan-api.cyclic.app/fixbook?limit=100000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
@@ -337,7 +337,7 @@ export function updateBooking(dataForm, cb) {
       delete payload.idx
       const { data } = await axios({
         method: 'put',
-        url: `https://yogzan-api-dev.cyclic.app/book/${_id}`,
+        url: `https://yogzan-api.cyclic.app/book/${_id}`,
         // url: `http://localhost:5000/book/${_id}`,
         data: payload,
         headers: {
