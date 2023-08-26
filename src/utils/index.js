@@ -53,11 +53,11 @@ export const sortDate = (a, b, type, key) => {
 }
 
 export const sortAlphabetically = (a, b, key) => {
-  if (a[key] < b[key]) {
-    return -1;
+  if(a[key] === undefined) {
+    a[key] = ''
   }
-  if (a[key] > b[key]) {
-    return 1;
+  if(b[key] === undefined) {
+    b[key] = ''
   }
-  return 0;
+  return a[key].localeCompare(b[key])
 }
