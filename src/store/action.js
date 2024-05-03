@@ -269,12 +269,13 @@ export function getAllBookings() {
       dispatch({type: 'SET_LOADING', key: 'booking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-api.cyclic.app/book?limit=100000`,
+        url: `https://yogzan-api.cyclic.app/book?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
     } catch (error) {
       alert(error.response.data.err || error.message)
+      dispatch({type: 'SET_LOADING', key: 'booking', payload: false})
     }
   }
 }
@@ -285,12 +286,13 @@ export function getAllFixBookings() {
       dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://yogzan-api.cyclic.app/fixbook?limit=100000`,
+        url: `https://yogzan-api.cyclic.app/fixbook?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
     } catch (error) {
       alert(error.response.data.err || error.message)
+      dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: false})
     }
   }
 }
