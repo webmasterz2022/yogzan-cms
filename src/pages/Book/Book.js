@@ -178,6 +178,8 @@ export default function Book() {
     setForm
   })
 
+  console.log("data booking", dataBooking)
+
   const downloadXlsx = () => {
     let data;
     const sheets = {}
@@ -185,6 +187,12 @@ export default function Book() {
       if (e.date) {
         const currentSheet = moment(e.date).isValid() ? moment(e.date).format('YYYY MMMM') : e.date
         console.log(currentSheet, moment(e.date).isValid(), e.date, '--------')
+        if (!sheets[currentSheet]) {
+          sheets[currentSheet] = []
+        }
+        sheets[currentSheet].push(e)
+      } else if (e.layanan === "Cetak Album") {
+        const currentSheet = "Cetak Album"
         if (!sheets[currentSheet]) {
           sheets[currentSheet] = []
         }
