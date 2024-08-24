@@ -1,13 +1,19 @@
 import axios from 'axios'
 import base64toFile from '../utils/base64ToFile'
 
+// KOYEB
+// const BASE_URL = "https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app"
+
+// AWS Lightsail
+const BASE_URL = "https://api.yogzan.com"
+
 export function login(form) {
   return async dispatch => {
     try {
       dispatch({type: 'SET_LOADING', key: 'login', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: 'https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/users/login',
+        url: `${BASE_URL}/users/login`,
         data: form
       })
       localStorage.setItem('token', data.access_token)
@@ -28,7 +34,7 @@ export function register(form) {
       dispatch({type: 'SET_LOADING', key: 'register', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: 'https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/users/register',
+        url: `${BASE_URL}/users/register`,
         // url: 'http://localhost:5000/users/register',
         data: form
       })
@@ -48,7 +54,7 @@ export function getHomepageImages() {
       dispatch({type: 'SET_LOADING', key: 'homepage', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: 'https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/homepage',
+        url: `${BASE_URL}/gallery/homepage`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_HOMEPAGE' })
     } catch (error) {
@@ -62,8 +68,8 @@ export function getPortfolioImages(category, city) {
     try {
       dispatch({type: 'SET_LOADING', key: 'portfolio', payload: true})
       const url = (category && category !== 'Semua') ? 
-        `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/category/${category}?limit=1000${city ? `&city=${city}` : ''}` :
-        `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/?limit=1000${city ? `&city=${city}` : ''}`
+        `${BASE_URL}/gallery/category/${category}?limit=1000${city ? `&city=${city}` : ''}` :
+        `${BASE_URL}/gallery/?limit=1000${city ? `&city=${city}` : ''}`
       const { data } = await axios({
         method: 'get',
         url
@@ -91,7 +97,7 @@ export function addPortfolio(portfolio, cb) {
       form.append('city', portfolio.city)
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/upload`,
+        url: `${BASE_URL}/gallery/upload`,
         // url: `http://localhost:5000/gallery/upload`,
         data: form,
         headers: {
@@ -128,7 +134,7 @@ export function updatePortfolio(portfolio, id) {
       form.append('city', portfolio.city)
       const { data } = await axios({
         method: 'put',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/${id}`,
+        url: `${BASE_URL}/gallery/${id}`,
         // url: `http://localhost:5000/gallery/${id}`,
         data: form,
         headers: {
@@ -149,7 +155,7 @@ export function deletePortfolio(category, id) {
       dispatch({type: 'SET_LOADING', key: `deletePortfolio-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/${id}`,
+        url: `${BASE_URL}/gallery/${id}`,
         // url: `http://localhost:5000/gallery/${id}`,
         headers: {
           access_token: localStorage.getItem('token')
@@ -170,7 +176,7 @@ export function getCities(category) {
       dispatch({type: 'SET_LOADING', key: 'city', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/list-city`
+        url: `${BASE_URL}/gallery/list-city`
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_CITY' })
     } catch (error) {
@@ -185,7 +191,7 @@ export function submitHiring(dataForm, cb) {
       dispatch({type: 'SET_LOADING', key: 'submitHiring', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/hiring/submit`,
+        url: `${BASE_URL}/hiring/submit`,
         // url: `http://localhost:5000/hiring/submit`,
         data: dataForm
       })
@@ -204,7 +210,7 @@ export function getAllHirings() {
       dispatch({type: 'SET_LOADING', key: 'hiring', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/hiring?limit=100000`,
+        url: `${BASE_URL}/hiring?limit=100000`,
         // url: `http://localhost:5000/hiring/`,
       })
       dispatch({ payload: {...data, data: data.data.map((e, i) => ({...e, idx: i+1}))}, type: 'DATA_FETCHED_HIRINGS' })
@@ -228,7 +234,7 @@ export function updateHiring(dataForm, cb) {
       delete payload.idx
       const { data } = await axios({
         method: 'put',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/hiring/${_id}`,
+        url: `${BASE_URL}/hiring/${_id}`,
         // url: `http://localhost:5000/hiring/${_id}`,
         data: payload,
         headers: {
@@ -250,7 +256,7 @@ export function submitBooking(dataBooking, cb) {
       dispatch({type: 'SET_LOADING', key: 'submitBooking', payload: true})
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/book/submit`,
+        url: `${BASE_URL}/book/submit`,
         // url: `http://localhost:5000/book/submit`,
         data: dataBooking
       })
@@ -269,7 +275,7 @@ export function getAllBookings() {
       dispatch({type: 'SET_LOADING', key: 'booking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/book?limit=10000`,
+        url: `${BASE_URL}/book?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_BOOKINGS' })
@@ -286,7 +292,7 @@ export function getAllFixBookings() {
       dispatch({type: 'SET_LOADING', key: 'fixBooking', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/fixbook?limit=10000`,
+        url: `${BASE_URL}/fixbook?limit=10000`,
         // url: `http://localhost:5000/book/`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_FIXBOOKINGS' })
@@ -310,7 +316,7 @@ export function updateFixBooking(dataForm, cb) {
       delete payload.idx
       const { data } = await axios({
         method: 'put',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/fixbook/${_id}`,
+        url: `${BASE_URL}/fixbook/${_id}`,
         // url: `http://localhost:5000/fixbook/${_id}`,
         data: payload,
         headers: {
@@ -339,7 +345,7 @@ export function updateBooking(dataForm, cb) {
       delete payload.idx
       const { data } = await axios({
         method: 'put',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/book/${_id}`,
+        url: `${BASE_URL}/book/${_id}`,
         // url: `http://localhost:5000/book/${_id}`,
         data: payload,
         headers: {
@@ -362,7 +368,7 @@ export function deleteFixBooking(dataForm) {
       dispatch({type: 'SET_LOADING', key: `deleteFixBooking-${_id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/fixbook/${_id}`,
+        url: `${BASE_URL}/fixbook/${_id}`,
         // url: `http://localhost:5000/fixbook/${_id}`,
         headers: {
           access_token: localStorage.getItem('token')
@@ -382,7 +388,7 @@ export function deleteGallery(id) {
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/${id}`,
+        url: `${BASE_URL}/gallery/${id}`,
         // url: `http://localhost:5000/gallery/${id}`,
       })
       dispatch({type: 'SET_LOADING', key: `deleteGallery-${id}`, payload: false})
@@ -405,7 +411,7 @@ export function uploadHomepageGallery(file, imageName, index) {
       form.append('images', convertedFile)
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/gallery/upload-homepage`,
+        url: `${BASE_URL}/gallery/upload-homepage`,
         // url: `http://localhost:5000/gallery?id=${id}`,
         data: form,
         headers: {
@@ -427,7 +433,7 @@ export function getAllCategories() {
       dispatch({type: 'SET_LOADING', key: 'category', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/category`,
+        url: `${BASE_URL}/category`,
         // url: `http://localhost:5000/category`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_CATEGORY' })
@@ -449,7 +455,7 @@ export function addCategory(category, cb) {
       form.append('displayOnGallery', category.displayOnGallery ? true : false)
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/category`,
+        url: `${BASE_URL}/category`,
         // url: `http://localhost:5000/category`,
         data: form,
         headers: {
@@ -485,7 +491,7 @@ export function updateCategory(id, category, cb) {
       form.append('cities', JSON.stringify(category.cities || []))
       const { data } = await axios({
         method: 'put',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/category/update/${id}`,
+        url: `${BASE_URL}/category/update/${id}`,
         // url: `http://localhost:5000/category/update/${id}`,
         data: form,
         headers: {
@@ -508,7 +514,7 @@ export function deleteCategory(id) {
       dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/category/${id}`,
+        url: `${BASE_URL}/category/${id}`,
         // url: `http://localhost:5000/category/${id}`,
       })
       dispatch({type: 'SET_LOADING', key: `deleteCategory-${id}`, payload: false})
@@ -526,7 +532,7 @@ export function getAllTestimonies() {
       dispatch({type: 'SET_LOADING', key: 'testimony', payload: true})
       const { data } = await axios({
         method: 'get',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/testimony`,
+        url: `${BASE_URL}/testimony`,
         // url: `http://localhost:5000/testimony`,
       })
       dispatch({ payload: data, type: 'DATA_FETCHED_TESTIMONY' })
@@ -548,7 +554,7 @@ export function addTestimony(testimony, cb) {
       form.append('desc', testimony.desc || '')
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/testimony`,
+        url: `${BASE_URL}/testimony`,
         // url: `http://localhost:5000/testimony`,
         data: form,
         headers: {
@@ -582,7 +588,7 @@ export function updateTestimony(id, testimony, cb) {
       form.append('desc', testimony.desc)
       const { data } = await axios({
         method: 'put',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/testimony/${id}`,
+        url: `${BASE_URL}/testimony/${id}`,
         // url: `http://localhost:5000/testimony/${id}`,
         data: form,
         headers: {
@@ -605,7 +611,7 @@ export function deleteTestimony(id) {
       dispatch({type: 'SET_LOADING', key: `deleteTestimony-${id}`, payload: true})
       const { data } = await axios({
         method: 'delete',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/testimony/${id}`,
+        url: `${BASE_URL}/testimony/${id}`,
         // url: `http://localhost:5000/testimony/${id}`,
         headers: {
           access_token: localStorage.getItem('token')
@@ -626,7 +632,7 @@ export function pathChecker(path, id) {
       dispatch({type: 'SET_LOADING', key: `checkPath-${id}`, payload: true})
       const { data } = await axios({
         method: 'post',
-        url: `https://active-hedwiga-efhadigital-2-f3fb112a.koyeb.app/fixbook/check-path`,
+        url: `${BASE_URL}/fixbook/check-path`,
         // url: `http://localhost:5000/testimony/${id}`,
         data: {
           path
