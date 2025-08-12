@@ -10,15 +10,15 @@ export default function PriceList() {
   const { categories, isLoading } = useSelector(s => s)
   const [data, setData] = useState({})
   const [newData, setNewData] = useState({})
-  
+
   useEffect(() => {
     dispatch(getAllCategories())
   }, [])
 
   useEffect(() => {
-    if(categories.length > 0) {
+    if (categories.length > 0) {
       categories.forEach(e => {
-        setData(prev => ({...prev, [e.name]: e}))
+        setData(prev => ({ ...prev, [e.name]: e }))
       })
     }
   }, [categories])
@@ -38,7 +38,7 @@ export default function PriceList() {
         }
       }
     })
-  } 
+  }
 
   const handleNewInput = (input, categoryName, field) => {
     setNewData(prev => ({
@@ -51,25 +51,25 @@ export default function PriceList() {
   }
 
   const submit = (category, isNew) => {
-    const _categories = {...data}
-    const _category = {..._categories[category.name], images: _categories[category.name].image}
-    if(isNew) {
-      if(!_category.cities){
+    const _categories = { ...data }
+    const _category = { ..._categories[category.name], images: _categories[category.name].image }
+    if (isNew) {
+      if (!_category.cities) {
         _category.cities = []
       }
       _category.cities.push(newData[category.name])
       dispatch(updateCategory(category._id, _category, () => setNewData({})))
     } else {
-      dispatch(updateCategory(category._id, _category, () => setData(prev => ({...prev, [category.name]: {}}))))
+      dispatch(updateCategory(category._id, _category, () => setData(prev => ({ ...prev, [category.name]: {} }))))
     }
   }
 
   const hapus = (category, index) => {
-    const _categories = {...data}
-    const _category = {..._categories[category.name], images: _categories[category.name].image}
-    const _cities = _category.cities.filter((e,i) => i !== index)
+    const _categories = { ...data }
+    const _category = { ..._categories[category.name], images: _categories[category.name].image }
+    const _cities = _category.cities.filter((e, i) => i !== index)
     _category.cities = _cities
-    dispatch(updateCategory(category._id, _category, () => setData(prev => ({...prev, [category.name]: {}}))))
+    dispatch(updateCategory(category._id, _category, () => setData(prev => ({ ...prev, [category.name]: {} }))))
   }
 
   return (
@@ -80,15 +80,15 @@ export default function PriceList() {
           <div className={styles.cards}>
             {data[category.name]?.cities?.map((city, index) => (
               <div className={styles.card} key={index}>
-                <Input 
-                  label="Nama Kota"
+                <Input
+                  label="Nama Kota/Lokasi"
                   meta={{}}
                   input={{
                     onChange: e => handleChangeInput(e, category.name, 'name', index),
                     value: city.name
                   }}
                 />
-                <Input 
+                <Input
                   label="Link Price List"
                   meta={{}}
                   input={{
@@ -97,8 +97,8 @@ export default function PriceList() {
                   }}
                 />
                 <div className={styles.buttonGroup}>
-                  <Button 
-                    variant="active-square" 
+                  <Button
+                    variant="active-square"
                     handleClick={() => submit(category)}
                     disabled={(city.name === category.cities[index].name && city.file === category.cities[index].file) || isLoading[`updateCategory-${category._id}`]}
                   >
@@ -106,18 +106,18 @@ export default function PriceList() {
                   </Button>
                   <Button handleClick={() => hapus(category, index)}>Hapus</Button>
                 </div>
-              </div>  
+              </div>
             ))}
             <div className={styles.card}>
-              <Input 
-                label="Nama Kota"
+              <Input
+                label="Nama Kota/Lokasi"
                 meta={{}}
                 input={{
                   onChange: e => handleNewInput(e, category.name, 'name'),
                   value: newData[category.name]?.name || ''
                 }}
               />
-              <Input 
+              <Input
                 label="Link Price List"
                 meta={{}}
                 input={{
@@ -126,8 +126,8 @@ export default function PriceList() {
                 }}
               />
               <div className={styles.buttonGroup}>
-                <Button 
-                  variant="active-square" 
+                <Button
+                  variant="active-square"
                   handleClick={() => submit(category, true)}
                   disabled={(!newData[category.name]?.name || !newData[category.name]?.file) || isLoading[`updateCategory-${category._id}`]}
                 >

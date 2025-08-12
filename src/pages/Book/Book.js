@@ -77,7 +77,7 @@ export default function Book() {
     { dataIndex: "idx", title: "No.", width: '64px', sorter: (a, b) => a.idx - b.idx, fixed: 'left' },
     { dataIndex: "name", title: "Nama", width: '160px' },
     { dataIndex: "layanan", title: "Layanan", width: '128px' },
-    { dataIndex: "city", title: "Kota", width: '128px' },
+    { dataIndex: "city", title: "Lokasi", width: '128px' },
     { dataIndex: "date", title: "Tanggal Pemotretan", width: '240px', render: renderDate },
     { dataIndex: "phone", title: "No. Whatsapp", width: '160px' },
     { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: '240px', ellipsis: true },
@@ -261,7 +261,7 @@ export default function Book() {
         columns: [
           { label: 'Nama', value: 'name' },
           { label: 'Layanan Dipilih', value: 'layanan' },
-          { label: 'Kota', value: 'city' },
+          { label: 'Lokasi', value: 'city' },
           { label: 'Tanggal Pemotretan', value: row => moment(row.date).isValid() ? moment(row.date).format('YYYY-MM-DD') : row.date },
           { label: 'No. Whatsapp', value: row => row.phone ? `'${row.phone}` : '' },
           { label: 'Mengetahui Yogzan Dari', value: 'knowFrom' },
