@@ -102,7 +102,7 @@ export default function Book() {
     { dataIndex: "ig-attire", title: "Instagram Attire", width: '200px', editable: true },
     { dataIndex: "phone", title: "No. Whatsapp", width: '160px', editable: true },
     { dataIndex: "address", title: "Alamat Pengiriman Hasil Cetak", width: '240px', editable: true },
-    { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: '240px', ellipsis: true },
+    { dataIndex: "knowFrom", title: "Mengetahui Yogzan dari", width: '240px' },
     { dataIndex: "bankName", title: "Transfer via", width: '160px', editable: true },
     { dataIndex: "accountHolderName", title: "Nama Pemilik Rekening", width: '160px', editable: true },
     { dataIndex: "createdAt", title: "Tanggal Submit", width: '200px', render: renderDateTime, sorter: (a, b, type) => sortDate(a, b, type, 'createdAt') },
