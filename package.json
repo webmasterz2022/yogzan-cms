@@ -46,5 +46,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "braces": "^3.0.3",
+    "node-forge": "^1.4.0"
   }
 }
